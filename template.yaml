@@ -54,6 +54,14 @@ body:
   - title: Method
     text: |
       <style>
+      .uk-container .uk-h2.uk-text-primary.uk-text-bold {
+        display: inline !important;
+        font-weight: 900 !important;
+        color: #111 !important;
+        background: linear-gradient(180deg, transparent 66%, rgba(211,47,47,0.18) 66%, rgba(211,47,47,0.18) 88%, transparent 88%) !important;
+        padding: 0 0.08em !important;
+        line-height: 1.18 !important;
+      }
       body {
         font-size: 18px;
       }
@@ -226,6 +234,13 @@ body:
       </thead>
       <tbody>
       <tr>
+      <td><video src="matrix/clean1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/maxV1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/minV1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/far1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/close1.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
       <td><video src="matrix/clean2.mp4" controls muted loop playsinline></video></td>
       <td><video src="matrix/maxV2.mp4" controls muted loop playsinline></video></td>
       <td><video src="matrix/minV2.mp4" controls muted loop playsinline></video></td>
@@ -284,6 +299,13 @@ body:
       <td><video src="astra/driftmax56.mp4" controls muted loop playsinline></video></td>
       <td><video src="astra/driftmin56.mp4" controls muted loop playsinline></video></td>
       </tr>
+      <tr>
+      <td><video src="astra/clean23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/maxV23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/minV23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmax23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmin23.mp4" controls muted loop playsinline></video></td>
+      </tr>
       </tbody>
       </table>
       </div>
@@ -332,7 +354,7 @@ body:
       
       <span class="badworld-red">BadWorld</span> shows that tiny, imperceptible changes to a single input image can severely corrupt future rollouts.
       This reveals a critical robustness gap for <span class="badworld-emph">safety-critical deployment</span> and a practical path for <span class="badworld-emph">privacy protection</span>.
-      
+
 #   - title: Markdown examples
 #     text: |
 #       Here's our demo text showcasing the power of markdown and KaTeX integration!
