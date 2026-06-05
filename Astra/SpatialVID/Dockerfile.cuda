@@ -1,0 +1,86 @@
+# This Dockerfile builds FFmpeg with NVIDIA GPU support and libvmaf from source
+# It uses a two-stage build to create a smaller runtime image
+# This file is adapted from https://github.com/Netflix/vmaf/blob/master/Dockerfile.cuda
+
+ARG CUDA_BASE_IMAGE=docker.io/nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
+ARG RUN_TIME_IMG=docker.io/nvidia/cuda:12.6.3-runtime-ubuntu22.04
+# ARG CUDA_BASE_IMAGE=swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
+# ARG RUN_TIME_IMG=swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/nvidia/cuda:12.6.3-runtime-ubuntu22.04
+
+FROM $CUDA_BASE_IMAGE as builder
+
+
+ARG VMAF_TAG=master
+ARG FFMPEG_TAG=master
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libopenjp2-7-dev \
+    ninja-build cmake git python3 python3-pip nasm xxd pkg-config curl unzip nvidia-cuda-toolkit
+
+RUN git clone https://github.com/Netflix/vmaf.git && cd vmaf && git checkout $VMAF_TAG
+
+RUN git clone https://github.com/FFmpeg/FFmpeg.git && cd FFmpeg && git checkout $FFMPEG_TAG
+
+RUN git clone https://github.com/FFmpeg/nv-codec-headers.git && cd nv-codec-headers && make && make install
+
+# install vmaf
+RUN python3 -m pip install meson
+RUN cd vmaf && meson libvmaf/build libvmaf -Denable_cuda=true -Denable_avx512=true --buildtype release && \
+    ninja -vC libvmaf/build  && \
+    ninja -vC libvmaf/build  install
+
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/x86_64-linux-gnu/
+RUN ldconfig
+
+# install ffmpeg
+RUN cd FFmpeg && ./configure \
+    --enable-libnpp \
+    --enable-nonfree \
+    --enable-nvdec \
+    --enable-nvenc \
+    --enable-cuvid \
+    --enable-cuda \
+    --enable-cuda-nvcc \
+    --enable-libvmaf \
+    --enable-ffnvcodec \
+    --disable-stripping \
+    --extra-cflags="-I/usr/local/cuda/include" \
+    --extra-ldflags="-L/usr/local/cuda/lib64 -L/usr/local/cuda/lib64/stubs/" 
+
+RUN cd FFmpeg && make -j && make install
+
+RUN mkdir /data
+
+
+# Create a smaller runtime image
+FROM ${RUN_TIME_IMG} as runtime
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates python3 python3-pip python3-venv libnuma-dev libsm6 libxext6 libxrender1 libgl1 git vim && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+# Copy FFmpeg and libvmaf from builder (installed under /usr/local)
+COPY --from=builder /usr/local /usr/local
+# copy libraries installed by the builder stage if present
+COPY --from=builder /usr/lib/ /usr/lib/
+
+# Link python
+RUN ln -sf /usr/bin/python3 /usr/bin/python
+RUN python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# Copy repository
+COPY . /workspace
+RUN apt-get update
+
+# Install Python requirements (may still fail for some packages requiring system libs)
+RUN python3 -m pip --no-cache-dir install -r requirements/requirements.txt
+RUN python3 -m pip --no-cache-dir install -r requirements/requirements_scoring.txt || true
+RUN python3 -m pip --no-cache-dir install -r requirements/requirements_annotation.txt || true
+
+# Entrypoint
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENV FFMPEG_PATH=/usr/local/bin/ffmpeg
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["bash", "ldconfig"]

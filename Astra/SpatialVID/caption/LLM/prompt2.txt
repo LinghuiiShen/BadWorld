@@ -1,0 +1,15 @@
+Output Format:
+
+1. Camera Motion Caption:  
+[From the perspective of the camera holder, with the camera as the subject. Combine camera pose information to describe]
+
+2. Scene Abstract Caption:  
+[A concise one sentence summary of the scene]
+
+3. Main Motion Trend Summary:  
+[keywords separated by commas, e.g., forward translate, downward tilt]
+
+4. Scene Keywords:
+[word1, word2, word3, ...] (max 5 words)
+
+5. Immersive Shot Summary:

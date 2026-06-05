@@ -1,0 +1,3 @@
+[submodule "camera_pose_annotation/base"]
+	path = camera_pose_annotation/base
+	url = https://github.com/SpatialVID/base.git

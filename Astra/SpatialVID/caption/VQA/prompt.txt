@@ -1,0 +1,33 @@
+You are given a sequence of video frames in chronological order. Analyze them carefully and generate two distinct captions based on the following instructions:
+
+1. Camera Motion Caption:
+
+From the perspective of the camera operator, describe the entire motion trajectory of the camera throughout the clip using precise cinematography terminology (e.g., static, pan, tilt, dolly, handheld, crane, aerial, zoom, etc.).  
+
+Do NOT assume the camera starts in a "static" position just because it appears stationary in the first frame.Only describe the camera as stationary if there is no visual change across multiple consecutive frames.
+
+Instead, focus on changes between frames to infer movement. Describe motion state transitions, not frame-by-frame repetition (e.g., do not say “the camera moves forward again” if it’s continuous). For example:
+- Starting with a dolly forward along a straight path,
+- Then transitioning into a slow right-hand pan,
+- Or shifting from handheld walking movement to a stationary pivot tilt.
+
+Include brief environmental context where relevant to clarify direction or intent (e.g., "The camera dollies forward through a narrow alleyway, then smoothly turns left at the intersection").
+
+Keep the final caption concise, between 50–100 words, focused only on motion and its evolution over time.
+
+2. Scene Description:
+
+Provide a rich, holistic description of the visual content. Include:
+- Main subjects and dynamic objects: who or what is present, and what they are doing (e.g., a cyclist rides past from left to right, a group of people gather near a bench),
+- Background/environment: setting (urban street, forest trail, indoor space), notable landmarks or structures,
+- Lighting and atmosphere: time of day, weather conditions, mood (e.g., golden-hour lighting, overcast sky casting soft shadows, neon-lit nighttime scene),
+- Overall tone or emotion conveyed by the scene.
+
+Avoid focusing on individual frames—describe the general impression and ongoing activity across the entire clip. Aim for around 100 words, balancing detail and conciseness.
+
+Output Format:  
+Do not include any explanations or extra text before or after your response.  
+Begin directly with:  
+1. Camera Motion Caption: ...
+followed by  
+2. Scene Description: ...

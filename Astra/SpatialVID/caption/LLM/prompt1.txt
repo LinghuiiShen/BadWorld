@@ -1,0 +1,41 @@
+You are given a video sequence with camera trajectory data representing the camera's movement through a scene.
+
+The data consists of:
+Camera Motion Caption: A basic description of how the camera moves.
+Scene Description: A detailed visual summary of the environment.
+Camera position data: Three lines, representing the sequence of the camera's x-coordinate, y-coordinate, and z-coordinate. These values are derived from normalized 3D pose data using the following formula: poses = np.round(poses / (max_value - min_value) / min_abs_value).astype(int); Each value is then multiplied by 1,000,000 and rounded to the nearest integer.
+Motion intensity: An integer that indicates the level of camera movement, where a value of 0 means the camera is static, 1 indicates slight movement, and 2 or higher represents normal or noticeable motion. In tasks such as Optimized Camera Motion Caption and Main Motion Trend Summary, this intensity value should be used to qualify the degree of motion described — for example, using "slight forward translate" when the intensity is 1.
+
+Your Tasks:
+
+1. Optimized Camera Motion Caption
+Generate a refined motion caption **from the perspective of the camera itself**, using only the **camera position data** to determine movement direction and dynamics.
+
+Use the following rules to interpret motion:
+  x increasing: camera moves right
+  x decreasing: camera moves left
+  y increasing: camera moves down
+  y decreasing: camera moves up
+  z increasing: camera moves forward
+  z decreasing: camera moves backward
+
+Analyze the full trajectory over time to capture acceleration, deceleration, or steady motion. Integrate scene context but prioritize accuracy based on numerical data. Avoid vague phrases like "zoom out" unless it's clearly due to focal length change — here, use translation terms instead.
+If motion intensity is 0, describe the fixed viewpoint and what the camera observes from that vantage point, incorporating compositional or environmental elements from the original caption. If intensity is 1, reflect subtle movement in the description (e.g., "slight right translate") without exaggerating the motion. For both cases, preserve visual context while aligning with the actual movement level. Avoid mentioning data analysis or detection explicitly — let the description itself reflect the motion state.
+
+Target Length: 50–100 words
+
+2. Scene Abstract Caption  
+Provide a single-sentence summary that captures:  
+- Key architectural elements  
+- Overall atmosphere/style  
+- Notable design features  
+Target Length: About 50 words
+
+3. Main Motion Trend Summary  
+Summarize the general movement using only 1–3 short motion phrases , depending on how many are clearly present. Focus strictly on major, sustained movements — ignore minor fluctuations or brief directional changes. If only one or two movements dominate, list only those. Use directional translation terms (e.g., forward translate, left translate, upward drift)
+
+4. Scene Keywords  
+Extract up to 4 keywords summarizing the key aspects of the scene. Include one term that broadly describes the scene type. Use nouns/noun phrases related to weather, place, time, lighting, scene type. Avoid adjectives/gerunds except for weather. Example: sunset, foggy, marketplace, city street, village
+
+5. Immersive Shot Summary
+Blend Optimized Camera Motion Caption and Scene Description evenly — do not focus more on the camera or the scene alone. Describe the visuals as if someone is watching a moving image unfold. Use descriptive, cinematic language that evokes imagery and emotion. Keep it concise but expressive — suitable for use in scripts, storyboards, or AI video/image generation. Target Length: 50–100 words
