@@ -1,8 +1,8 @@
 theme: default
 organization: The Hong Kong Polytechnic University
 twitter: '@denkivvakame'
-title: "BadWorld: Adversarial Attack on World Models"
-journal: ""
+title: 'BadWorld: Adversarial Attack on World Models'
+journal: ''
 resources:
   paper: # https://openreview.net/
   arxiv: https://arxiv.org
@@ -45,10 +45,10 @@ bibtex: >
 teaser: cover.jpg
 
 body:
-  - title: "TL;DR"
+  - title: 'TL;DR'
     text: |
       We introduce <span style="color:#d32f2f; font-weight:700;">BadWorld</span>, a label-free adversarial attack for visual world models. 
-      
+
       Starting from a single perturbed context image, <span style="color:#d32f2f; font-weight:700;">BadWorld</span> reliably causes future rollouts to break down across unseen user controls, revealing severe robustness risks in current VWMs.
 
   - title: Method
@@ -316,7 +316,7 @@ body:
       </div>
 
       BadWorld further improves the perturbation by considering that future user controls are unknown and may vary. 
-      
+
       It actively searches for <span class="badworld-emph">hard trajectories</span> where the current perturbation is less effective, then updates the perturbation against these challenging controls. This makes the adversarial image more robust across different camera paths or action sequences, leading to <span class="badworld-emph">stronger degradation and better generalization</span>.
 
       <div class="trajectory-wide">
@@ -351,7 +351,7 @@ body:
   - title: Key Takeaway
     text: |
       Visual world models are becoming interactive simulators, but their fragile dynamics suggest they <span class="badworld-emph">have not truly learned stable physical knowledge</span>.
-      
+
       <span class="badworld-red">BadWorld</span> shows that tiny, imperceptible changes to a single input image can severely corrupt future rollouts.
       This reveals a critical robustness gap for <span class="badworld-emph">safety-critical deployment</span> and a practical path for <span class="badworld-emph">privacy protection</span>.
 
@@ -545,7 +545,8 @@ projects: # relevant projects
     description: abstract text
     img: 002.jpg
     journal: "IJKL'22"
-    url: https://denkiwakame.github.io/academic-project-template/
+    url:
+      https://denkiwakame.github.io/academic-project-template/
 
       # <tr>
       # <td><video src="matrix/clean1.mp4" controls muted loop playsinline></video></td>
