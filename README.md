@@ -10,10 +10,10 @@
 
 <img src="./assets/cover.png" width="90%">
 
-<br>
+<div align="left">
 
-> **BadWorld: Adversarial Attacks on World Models**
-> Linghui Shen, Mingyue Cui, [Xingyi Yang](https://adamdad.github.io/)
+> **BadWorld: Adversarial Attacks on World Models**  
+> Linghui Shen, Mingyue Cui, [Xingyi Yang](https://adamdad.github.io/)  
 > The Hong Kong Polytechnic University
 
 </div>
