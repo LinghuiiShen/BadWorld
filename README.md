@@ -6,16 +6,17 @@
 [![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](YOUR_PROJECT_PAGE_LINK)
 [![Code](https://img.shields.io/badge/Code-GitHub-black.svg)](https://github.com/LinghuiiShen/BadWorld)
 
-<p>
-  Linghui Shen, Mingyue Cui, <a href="https://adamdad.github.io/">Xingyi Yang</a>
-</p>
+<br>
 
-<p>
-  The Hong Kong Polytechnic University
-</p>
+<img src="./assets/cover.png" width="90%">
+
+<br>
+
+> **BadWorld: Adversarial Attacks on World Models**
+> Linghui Shen, Mingyue Cui, [Xingyi Yang](https://adamdad.github.io/)
+> The Hong Kong Polytechnic University
 
 </div>
-
 
 ---
 
