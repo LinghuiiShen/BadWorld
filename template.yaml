@@ -43,31 +43,78 @@ bibtex: >
   }
 
 teaser: cover.jpg
-# abstract: |
-#   This is a versatile template designed to satisfy your research project page needs, all while harnessing the power of 🎨**UIKit** and ⚛ **React**. Built on the foundations of simplicity and flexibility, this template allows you to focus on expressing your ideas without the hassle of directly handling CSS—thanks to customizable SASS variables.
-#   With markdown as your canvas and $\KaTeX$ for precise equations, crafting clear and engaging project page becomes effortless. Whether you're unraveling complex theories or presenting your findings, this template aims to support your scholarly endeavors with grace and ease.
-#   *Need to edit HTML directly?* Fear not! In addition to markdown, you can also directly write HTML with ease. Feel empowered to craft your content exactly as you envision it, whether through markdown's simplicity or the precision of HTML.
 
 body:
   - title: "TL;DR"
     text: |
-      We introduce  <span style="color:#d32f2f; font-weight:700;">BadWorld</span>, a label-free adversarial attack for visual world models. 
+      We introduce <span style="color:#d32f2f; font-weight:700;">BadWorld</span>, a label-free adversarial attack for visual world models. 
       
-      Starting from a single perturbed context image,  <span style="color:#d32f2f; font-weight:700;">BadWorld</span> reliably causes future rollouts to break down across unseen user controls, revealing severe robustness risks in current VWMs.
-  - title: Model
+      Starting from a single perturbed context image, <span style="color:#d32f2f; font-weight:700;">BadWorld</span> reliably causes future rollouts to break down across unseen user controls, revealing severe robustness risks in current VWMs.
+
+  - title: Method
     text: |
-      <img src="model_badworld.jpg" style="width:100%; height:auto; object-fit:contain; display:block;">
-      
-  - title: 1. Label-Free Velocity Attack Objectives
-    text: |
-      BadWorld attacks the world model without requiring any ground-truth future video or predefined correct rollout.
-
-      We introduce four self-supervised objectives: (1) Velocity-Max, amplifying denoising updates; (2) Velocity-Min, suppressing denoising updates; (3) Drift-Max, encouraging semantic drift; and (4) Drift-Min, inducing motion collapse.
-      For all objectives, we approximate the history using repeated clean contexts and constrain the attack to early denoising timesteps.
-
-      Among them, we choose Velocity-Min as the final objective, since it consistently achieves strong attack effectiveness on both Matrix-Game-2.0 and Astra.
-
       <style>
+      body {
+        font-size: 18px;
+      }
+
+      .badworld-red {
+        color: #d32f2f;
+        font-weight: 800;
+      }
+
+      .badworld-emph {
+        font-weight: 800;
+        color: #111;
+        background: linear-gradient(180deg, transparent 58%, rgba(211,47,47,0.18) 58%);
+      }
+
+      .badworld-level2-heading {
+        font-size: 1.36em;
+      }
+
+      .video-results-table th,
+      .trajectory-video-table th {
+        font-size: 1.06em;
+      }
+      .badworld-method-image {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        margin-bottom: 34px;
+      }
+      .badworld-level2-heading {
+        width: 72vw;
+        max-width: 1020px;
+        margin: 38px 0 18px 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.28em;
+        font-weight: 800;
+        color: #111;
+        border-left: 5px solid #d32f2f;
+        padding: 10px 0 10px 14px;
+        background: linear-gradient(90deg, rgba(211,47,47,0.08), rgba(211,47,47,0));
+      }
+      .badworld-level2-index {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: #d32f2f;
+        color: #fff;
+        font-size: 0.82em;
+        font-weight: 900;
+        flex: 0 0 auto;
+      }
+      .badworld-level2-text {
+        width: 100%;
+      }
       .results-wide {
         width: 90vw;
         max-width: 1400px;
@@ -77,24 +124,29 @@ body:
       .video-section-title {
         width: 90vw;
         max-width: 1400px;
-        margin: 26px 0 14px 50%;
+        margin: 28px 0 14px 50%;
         transform: translateX(-50%);
         display: flex;
         align-items: center;
-        gap: 16px;
-        font-size: 1.35em;
-        font-weight: 800;
-        color: #111;
+        gap: 14px;
+        font-size: 1.05em;
+        font-weight: 700;
+        color: #444;
+        letter-spacing: 0.02em;
       }
       .video-section-title::before,
       .video-section-title::after {
         content: "";
         flex: 1;
         height: 1px;
-        background: #d8d8d8;
+        background: #dddddd;
       }
       .video-section-title span {
         white-space: nowrap;
+        padding: 4px 13px;
+        border-radius: 999px;
+        background: #f7f7f7;
+        border: 1px solid #e2e2e2;
       }
       .video-results-table {
         width: 100%;
@@ -115,7 +167,50 @@ body:
         height: auto;
         display: block;
       }
+      .trajectory-wide {
+        width: 78vw;
+        max-width: 1200px;
+        margin: 22px 0 0 50%;
+        transform: translateX(-50%);
+      }
+      .trajectory-video-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+      .trajectory-video-table th,
+      .trajectory-video-table td {
+        padding: 7px;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .trajectory-video-table th {
+        font-weight: 800;
+      }
+      .trajectory-video-table video {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .binary-attack-label {
+        color: #d32f2f;
+        font-weight: 900;
+      }
       </style>
+
+      <img src="model_badworld.jpg" class="badworld-method-image">
+
+      <div class="badworld-level2-heading">
+      <span class="badworld-level2-index">1</span>
+      <span>Label-Free Velocity Attack Objectives</span>
+      </div>
+
+      BadWorld attacks the world model without requiring any ground-truth future video or predefined correct rollout.
+
+      We introduce four self-supervised objectives: (1) <span class="badworld-emph">Velocity-Max</span>, amplifying denoising updates; (2) <span class="badworld-emph">Velocity-Min</span>, suppressing denoising updates; (3) <span class="badworld-emph">Drift-Max</span>, encouraging semantic drift; and (4) <span class="badworld-emph">Drift-Min</span>, inducing motion collapse.
+      For all objectives, we approximate the history using repeated clean contexts and constrain the attack to early denoising timesteps.
+
+      Among them, we choose <span class="badworld-emph">Velocity-Min</span> as the final objective, since it consistently achieves strong attack effectiveness on both Matrix-Game-2.0 and Astra.
 
       <div class="video-section-title"><span>Matrix-Game-2.0</span></div>
       <div class="results-wide">
@@ -192,44 +287,15 @@ body:
       </tbody>
       </table>
       </div>
-      
-  - title: 2. Trajectory-Adaptive Optimization
-    text: |
+
+      <div class="badworld-level2-heading">
+      <span class="badworld-level2-index">2</span>
+      <span>Trajectory-Adaptive Optimization</span>
+      </div>
+
       BadWorld further improves the perturbation by considering that future user controls are unknown and may vary. 
       
-      It actively searches for hard trajectories where the current perturbation is less effective, then updates the perturbation against these challenging controls. This makes the adversarial image more robust across different camera paths or action sequences, leading to stronger degradation and better generalization.
-
-      <style>
-      .trajectory-wide {
-        width: 72vw;
-        max-width: 1100px;
-        margin: 22px 0 0 50%;
-        transform: translateX(-50%);
-      }
-      .trajectory-video-table {
-        width: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
-      }
-      .trajectory-video-table th,
-      .trajectory-video-table td {
-        padding: 7px;
-        text-align: center;
-        vertical-align: middle;
-      }
-      .trajectory-video-table th {
-        font-weight: 800;
-      }
-      .trajectory-video-table video {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-      .binary-attack-label {
-        color: #d32f2f;
-        font-weight: 900;
-      }
-      </style>
+      It actively searches for <span class="badworld-emph">hard trajectories</span> where the current perturbation is less effective, then updates the perturbation against these challenging controls. This makes the adversarial image more robust across different camera paths or action sequences, leading to <span class="badworld-emph">stronger degradation and better generalization</span>.
 
       <div class="trajectory-wide">
       <table class="trajectory-video-table">
@@ -259,13 +325,14 @@ body:
       </tbody>
       </table>
       </div>
+
   - title: Key Takeaway
     text: |
-      Visual world models are becoming interactive simulators, but their fragile dynamics suggest they have not truly learned stable physical knowledge.
+      Visual world models are becoming interactive simulators, but their fragile dynamics suggest they <span class="badworld-emph">have not truly learned stable physical knowledge</span>.
       
-      BadWorld shows that tiny, imperceptible changes to a single input image can severely corrupt future rollouts.
-      This reveals a critical robustness gap for safety-critical deployment and a pratical path for privacy protection.
-
+      <span class="badworld-red">BadWorld</span> shows that tiny, imperceptible changes to a single input image can severely corrupt future rollouts.
+      This reveals a critical robustness gap for <span class="badworld-emph">safety-critical deployment</span> and a practical path for <span class="badworld-emph">privacy protection</span>.
+      
 #   - title: Markdown examples
 #     text: |
 #       Here's our demo text showcasing the power of markdown and KaTeX integration!
