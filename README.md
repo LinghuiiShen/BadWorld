@@ -1,10 +1,9 @@
-# BadWorld
-
 <div align="center">
 
-**Label-Free Adversarial Attacks on Visual World Models**
+# BadWorld: Adversarial Attacks on World Models
 
 Linghui Shen, Mingyue Cui, Xingyi Yang
+
 The Hong Kong Polytechnic University
 
 <br>
@@ -16,6 +15,7 @@ The Hong Kong Polytechnic University
 </div>
 
 ---
+
 
 ## 🔥 TL;DR
 
