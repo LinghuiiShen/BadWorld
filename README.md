@@ -2,17 +2,20 @@
 
 # BadWorld: Adversarial Attacks on World Models
 
-Linghui Shen, Mingyue Cui, Xingyi Yang
-
-The Hong Kong Polytechnic University
-
-<br>
-
 [![arXiv](https://img.shields.io/badge/arXiv-paper-b31b1b.svg)](YOUR_ARXIV_LINK)
 [![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](YOUR_PROJECT_PAGE_LINK)
 [![Code](https://img.shields.io/badge/Code-GitHub-black.svg)](https://github.com/LinghuiiShen/BadWorld)
 
+<p>
+  Linghui Shen, Mingyue Cui, <a href="https://adamdad.github.io/">Xingyi Yang</a>
+</p>
+
+<p>
+  The Hong Kong Polytechnic University
+</p>
+
 </div>
+
 
 ---
 
