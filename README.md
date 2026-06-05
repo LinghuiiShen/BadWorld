@@ -10,23 +10,21 @@
 
 <img src="./assets/cover.png" width="90%">
 
-<div align="left">
+</div>
+
+<br>
 
 > **BadWorld: Adversarial Attacks on World Models**  
 > Linghui Shen, Mingyue Cui, [Xingyi Yang](https://adamdad.github.io/)  
 > The Hong Kong Polytechnic University
 
-</div>
-
 ---
-
 
 ## 🔥 TL;DR
 
 We introduce **BadWorld**, a label-free adversarial attack for visual world models.
 
 Starting from a single perturbed context image, BadWorld reliably causes future rollouts to break down across unseen user controls, revealing severe robustness risks in current visual world models.
-
 ---
 
 ## 🧩 Method
