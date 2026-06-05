@@ -24,12 +24,25 @@ $base-pre-font-family: 'SFMono-Regular', 'Consolas', monospace;
 $section-padding-vertical-m: 25px;
 $tooltip-border-radius: 5px;
 
+// // theme colors
+// $accent-color: $clr-pink-500;
+// $theme-color: $clr-grey-100;
+// $theme-color-fg: $clr-black;
+
+// // global colors
+// $global-link-color: $accent-color;
+// $global-link-hover-color: $accent-color;
+// $global-color: $theme-color-fg;
+// $global-emphasis-color: $theme-color-fg;
+// $base-heading-color: $theme-color-fg;
+
 // theme colors
 $accent-color: $clr-pink-500;
-$theme-color: $clr-grey-100;
+$theme-color: #fffaf0;
 $theme-color-fg: $clr-black;
 
 // global colors
+$global-background: #fffaf0;
 $global-link-color: $accent-color;
 $global-link-hover-color: $accent-color;
 $global-color: $theme-color-fg;
@@ -50,3 +63,11 @@ $base-focus-outline-style: none;
 @import 'uikit/src/scss/mixins-theme.scss';
 @import 'uikit/src/scss/uikit.scss';
 @import 'normalize.css/normalize.css';
+
+.author-list {
+    gap: 40px;
+  }
+  
+  .author-item {
+    width: auto !important;
+  }
