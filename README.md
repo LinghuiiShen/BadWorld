@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**BadWorld: Label-Free Adversarial Attacks on Visual World Models**
+**Label-Free Adversarial Attacks on Visual World Models**
 
 Linghui Shen, Mingyue Cui, Xingyi Yang
 The Hong Kong Polytechnic University
@@ -17,7 +17,7 @@ The Hong Kong Polytechnic University
 
 ---
 
-## TL;DR
+## 🔥 TL;DR
 
 We introduce **BadWorld**, a label-free adversarial attack for visual world models.
 
@@ -25,7 +25,7 @@ Starting from a single perturbed context image, BadWorld reliably causes future 
 
 ---
 
-## Method
+## 🧩 Method
 
 <p align="center">
   <img src="./assets/model_badworld.jpg" width="90%">
@@ -46,14 +46,14 @@ cd BadWorld
 
 This repository currently provides attack and inference pipelines for:
 
-* **Matrix-Game-2.0**
-* **Astra**
+* **[Matrix-Game-2.0](https://github.com/SkyworkAI/Matrix-Game/tree/main/Matrix-Game-2)**
+* **[Astra](https://github.com/EternalEvan/Astra)**
 
 ---
 
-# Matrix-Game-2.0
+## 🎮 For Matrix-Game-2.0
 
-## 1. Environment Setup
+### 1. Environment Setup
 
 Create and activate the conda environment:
 
@@ -64,8 +64,8 @@ conda activate badworld-matrix
 
 Install `apex` and `FlashAttention` following their official instructions:
 
-* Apex: https://github.com/NVIDIA/apex
-* FlashAttention: https://github.com/Dao-AILab/flash-attention
+* [Apex](https://github.com/NVIDIA/apex)
+* [FlashAttention](https://github.com/Dao-AILab/flash-attention)
 
 Then install Matrix-Game-2 dependencies:
 
@@ -76,7 +76,7 @@ pip install -r requirements.txt
 python setup.py develop
 ```
 
-## 2. Download Checkpoints
+### 2. Download Checkpoints
 
 Download the Matrix-Game-2.0 checkpoints from Hugging Face:
 
@@ -84,7 +84,7 @@ Download the Matrix-Game-2.0 checkpoints from Hugging Face:
 huggingface-cli download Skywork/Matrix-Game-2.0 --local-dir Matrix-Game-2.0
 ```
 
-## 3. Run Attack
+### 3. Run Attack
 
 Example: `minV` objective.
 
@@ -97,15 +97,11 @@ python atk_minV.py \
     --num_steps 300
 ```
 
-The adversarial image will be saved under:
+Other attack objectives can be used by replacing `atk_minV.py` with the corresponding attack script.
 
-```bash
-./attacked/minV/1
-```
+### 4. Run Inference
 
-## 4. Run Inference
-
-Use the optimized adversarial image as the context image for rollout generation:
+Use the adversarial image as the context image for rollout generation:
 
 ```bash
 python inference.py \
@@ -120,9 +116,9 @@ python inference.py \
 
 ---
 
-# Astra
+## 🌌 For Astra
 
-## 1. Environment Setup
+### 1. Environment Setup
 
 Create and activate the conda environment:
 
@@ -145,9 +141,9 @@ cd Astra
 pip install -e .
 ```
 
-## 2. Download Checkpoints
+### 2. Download Checkpoints
 
-### Download Wan2.1
+#### Download Wan2.1
 
 ```bash
 cd script
@@ -155,31 +151,17 @@ python download_wan2.1.py
 cd ..
 ```
 
-### Download Astra Checkpoint
+#### Download Astra Checkpoint
 
-Download the pretrained Astra checkpoint from Hugging Face:
-
-```text
-https://huggingface.co/EvanEternal/Astra/blob/main/models/Astra/checkpoints/diffusion_pytorch_model.ckpt
-```
+Download the pretrained [Astra checkpoint](https://huggingface.co/EvanEternal/Astra/blob/main/models/Astra/checkpoints/diffusion_pytorch_model.ckpt) from Hugging Face.
 
 Place the checkpoint under:
 
-```bash
+```text
 models/Astra/checkpoints/diffusion_pytorch_model.ckpt
 ```
 
-The expected structure is:
-
-```text
-Astra/
-└── models/
-    └── Astra/
-        └── checkpoints/
-            └── diffusion_pytorch_model.ckpt
-```
-
-## 3. Run Attack
+### 3. Run Attack
 
 Example: `minV` objective.
 
@@ -194,15 +176,9 @@ python atk_minV.py \
     --alpha 0.005
 ```
 
-Other attack objectives can be used by replacing `atk_minV.py` with the corresponding script, for example:
+Other attack objectives can be used by replacing `atk_minV.py` with the corresponding attack script.
 
-```text
-atk_maxV.py
-atk_driftmax.py
-atk_driftmin.py
-```
-
-## 4. Run Inference
+### 4. Run Inference
 
 Generate a video rollout from the attacked image:
 
@@ -213,7 +189,7 @@ python infer_demo.py \
     --cam_type 4
 ```
 
-## 5. Bi-level Attack
+### 5. Bi-level Attack
 
 Run the bi-level attack with:
 
@@ -228,16 +204,15 @@ python atk_bi.py \
     --alpha 0.005
 ```
 
+---
 
 ## 🙏 Acknowledgements
 
 This repository builds on the following projects:
 
-* Matrix-Game-2.0
-* Astra
-* Wan2.1
-* DiffSynth-Studio
-* FlashAttention
+* [Matrix-Game-2.0](https://github.com/SkyworkAI/Matrix-Game/tree/main/Matrix-Game-2)
+* [Astra](https://github.com/EternalEvan/Astra)
+* [Wan2.1](https://github.com/Wan-Video/Wan2.1)
 
 ---
 
