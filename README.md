@@ -3,7 +3,7 @@
 # BadWorld: Adversarial Attacks on World Models
 
 [![arXiv](https://img.shields.io/badge/arXiv-paper-b31b1b.svg)](YOUR_ARXIV_LINK)
-[![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](YOUR_PROJECT_PAGE_LINK)
+[![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://linghuiishen.github.io/BadWorld/)
 [![Code](https://img.shields.io/badge/Code-GitHub-black.svg)](https://github.com/LinghuiiShen/BadWorld)
 
 <br>
@@ -25,6 +25,7 @@
 We introduce **BadWorld**, a label-free adversarial attack for visual world models.
 
 Starting from a single perturbed context image, BadWorld reliably causes future rollouts to break down across unseen user controls, revealing severe robustness risks in current visual world models.
+
 ---
 
 ## 🧩 Method
@@ -32,8 +33,6 @@ Starting from a single perturbed context image, BadWorld reliably causes future 
 <p align="center">
   <img src="./assets/model_badworld.jpg" width="90%">
 </p>
-
-BadWorld optimizes a small perturbation on the initial context image without requiring labels or target annotations. The resulting adversarial context can induce unstable, degraded, or inconsistent future rollouts across different visual world models and unseen control signals.
 
 ---
 
@@ -53,7 +52,8 @@ This repository currently provides attack and inference pipelines for:
 
 ---
 
-## 🎮 For Matrix-Game-2.0
+## 🎮 For Matrix-Game-2.0 
+> GPU memory requirement: 32GB.
 
 ### 1. Environment Setup
 
@@ -64,10 +64,7 @@ conda create -n badworld-matrix python=3.10 -y
 conda activate badworld-matrix
 ```
 
-Install `apex` and `FlashAttention` following their official instructions:
-
-* [Apex](https://github.com/NVIDIA/apex)
-* [FlashAttention](https://github.com/Dao-AILab/flash-attention)
+Install [`apex`](https://github.com/NVIDIA/apex) and [`FlashAttention`](https://github.com/Dao-AILab/flash-attention) following their official instructions.
 
 Then install Matrix-Game-2 dependencies:
 
@@ -118,7 +115,8 @@ python inference.py \
 
 ---
 
-## 🌌 For Astra
+## 🌌 For Astra 
+> GPU memory requirement: 80GB.
 
 ### 1. Environment Setup
 
@@ -157,11 +155,7 @@ cd ..
 
 Download the pretrained [Astra checkpoint](https://huggingface.co/EvanEternal/Astra/blob/main/models/Astra/checkpoints/diffusion_pytorch_model.ckpt) from Hugging Face.
 
-Place the checkpoint under:
-
-```text
-models/Astra/checkpoints/diffusion_pytorch_model.ckpt
-```
+Place the checkpoint under: models/Astra/checkpoints/diffusion_pytorch_model.ckpt
 
 ### 3. Run Attack
 
@@ -188,6 +182,7 @@ Generate a video rollout from the attacked image:
 python infer_demo.py \
     --condition_image ./attacked/minV/1/adv_step_0300.png \
     --output_path ./outputs/minV/1_cam4.mp4 \
+    --prompt "A dramatic mountain vista under a blue sky, with snow-capped peaks, evergreen trees, and fluffy clouds creating a natural, awe-inspiring atmosphere." \
     --cam_type 4
 ```
 
