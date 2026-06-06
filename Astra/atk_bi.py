@@ -53,37 +53,37 @@ class Tee:
             f.flush()
 
 DEFAULT_STREET_PROMPTS: List[str] = [
-    "A quiet, rainy street lined with trees and parked vehicles, featuring a reflective, waterlogged surface and a calm, melancholic atmosphere. It is a rainy day in what appears to be a parking area or a quiet street lined with trees. The ground is wet and reflective from the rain. Several cars are parked along the right side of the road, including a mix of compact cars and small trucks. The road has a crosswalk with yellow and white markings, and a yellow circle indicating a speed limit of 30. The atmosphere is calm and subdued due to the rain, creating a peaceful, slightly melancholic mood.",
-    "A serene, rain-soaked street adorned with trees and parked cars, showcasing a glossy surface and an atmosphere filled with quiet reflection. The day is marked by gentle rain, transforming what seems to be a parking area into a tranquil scene. Numerous vehicles, from compact cars to small trucks, are nestled along the right side of the road. A crosswalk, painted in yellow and white, cuts through the wet pavement, accompanied by a yellow circle indicating a speed limit of 30. The rainy weather envelops everything in a calm, slightly wistful ambiance.",
-    "A tranquil street, drenched by rain, features trees and parked vehicles, adding to the reflective, puddle-filled ground below. It is a rainy day on what seems to be a quiet road or parking lot, where multiple cars, including compact models and smaller trucks, rest on the right. A crosswalk with yellow and white stripes and a yellow circular speed limit sign of 30 give further detail to the scene. The atmosphere is peaceful yet tinged with a sense of melancholy due to the drizzle.",
-    "A still, rainy roadway flanked by trees and parked cars reveals a glistening, water-covered surface that enhances the calm, melancholic vibe. The day is drizzly, inviting a feeling of solitude on this quiet street or parking zone. Various vehicles, ranging from compact automobiles to small trucks, are stationed along the right side of the way. The crosswalk, marked in yellow and white, with a yellow circle displaying a speed limit of 30, completes the picture. Overall, the rain fosters a feeling of serenity mingled with a hint of sadness.",
-    "An understated, rainy avenue lined with trees and parked cars presents a shining, wet surface, evoking a peaceful and reflective mood. It’s a rainy day along what looks to be a parking space or a tranquil street. Cars, from small trucks to compact vehicles, are parked on the right-hand side. A crosswalk featuring yellow and white lines, along with a yellow circle notifying a speed limit of 30, adds context. This rain-bathed scene exudes calmude with a hint of melancholy.",
-    "A quiet, rain-filled street, bordered by trees and lined with parked vehicles, displays a reflective, puddled ground, along with a soothing and somber mood. The scene captures a rainy day in what could be a serene parking area. Multiple vehicles, including a variety of compact cars and smaller trucks, park along the right side of this pathway. There is a crosswalk, distinguished by its yellow and white paint, and a yellow circular sign indicating a speed limit of 30. The rain evokes a tranquil yet slightly sorrowful feeling.",
-    "An idyllic, rain-drenched street, flanked by trees and vehicles at rest, features a reflective surface that enhances the calm and introspective atmosphere. It’s obviously a rainy day on a peaceful street or what resembles a parking lot. Several cars, from compact options to small trucks, sit parked on the right side. A crosswalk marked in yellow and white, with a yellow circle denoting a speed limit of 30, punctuates the scene. The rain adds a layer of tranquility laced with a subtle sense of longing.",
-    "A peaceful, rain-streaked street lined with trees and various parked vehicles captures a glossy, reflective ground, creating a calm yet melancholic scene. On this rainy day, the area resembles either a quiet road or a parking zone. A range of cars, from compact models to small trucks, occupy the right side of the street. The crosswalk, adorned with yellow and white stripes along with a speed limit sign of 30 in yellow, marks the path. The rain nurtures an atmosphere of serenity tinged with a hint of sadness.",
-    "A beautiful, rainy street, bordered by arches of trees and stationary cars, reveals a shiny, waterlogged surface that contributes to a tranquil, melancholic aura. It’s a rainy day that suggests either a desolate street or a tranquil parking area. Numerous vehicles, including a blend of compact cars and small trucks, are parked to the right. A crosswalk with yellow and white detailing, accompanied by a yellow circle indicating a speed limit of 30, frames the scene. The rain bestows a sense of calm along with a touch of wistfulness.",
-    "A lovely, quiet street under rain, populated with trees and parked vehicles, exhibits a reflective, shimmering surface that enhances the calm and contemplative mood. On this rainy day, the scene unfolds as either a peaceful street or a parking area. A variety of vehicles, from compact cars to small trucks, occupy spaces on the right. The crosswalk, marked with yellow and white lines, alongside a yellow speed limit sign of 30, adds detail. The rain creates a tranquil, yet slightly nostalgic atmosphere.",
-    "A calm, rain-soaked avenue, lined with trees and parked vehicles, showcases a glimmering, water-covered ground that fosters a peaceful, melancholic ambiance. It’s a rainy day on what appears to be a quiet street or parking area. Several vehicles, including compact cars and small trucks, are stationed neatly along the right side. A crosswalk with its yellow and white markings, combined with a yellow circle signifying a speed limit of 30, highlights the scene. The rain brings a serene yet touchingly somber atmosphere.",
-    "An elegant, rainy road, rimmed with trees and parked cars, reveals a reflective, slick surface that adds to the peaceful, introspective mood. The day is damp, making this area seem like a quiet street or parking lot. A variety of vehicles, from small trucks to compact cars, line the right side. The crosswalk, easily spotted with its yellow and white stripes, and a yellow circle showing a speed limit of 30, enhance the scenery. The gentle rain establishes a tranquil feeling with a tinge of nostalgia.",
-    "A silent, rain-laden street, flanked by trees and parked vehicles, displays a glossy, waterlogged ground that inspires a calm, reflective atmosphere. On this rainy day, the setting resembles a peaceful street or a quiet parking area. Numerous cars, including compact models and smaller trucks, are parked to the right. The crosswalk, emblazoned in yellow and white, along with a circular yellow speed limit sign of 30, adds clarity to the scene. The rain imparts a soothing, yet slightly melancholic feel.",
-    "An exquisite, rainy thoroughfare lined with trees and parked cars unfolds a shiny, waterlogged surface that enhances the serene, contemplative mood. It’s a rainy day, ideally suited for what looks like a quiet street or parking area. Various vehicles, from compact cars to small trucks, are parked on the right. A crosswalk, marked vividly in yellow and white, along with a yellow circle sign indicating a speed limit of 30, details the scene. The rainfall cultivates a calming atmosphere, softly tinged with a sense of loss.",
-    "A delicate, rain-soaked street bordered by trees and parked vehicles reveals a shimmering, water-filled ground that evokes a tranquil, reflective atmosphere. This rainy day exudes the charm of a quiet street or parking area. Multiple vehicles, from compact cars to small trucks, line up along the right side. A crosswalk, highlighted in yellow and white, with a yellow circle indicating a speed limit of 30, accentuates the setting. The rain introduces a gentle calmness, laced with a hint of melancholy.",
-    "A peaceful street, drenched by rain and lined with trees and parked cars, highlights a glossy, reflective surface, contributing to a calm and melancholic vibe. It appears to be a rainy day in this quiet area, which looks like a parking lot. A mix of compact cars and small trucks rests along the right side of the road. The crosswalk with its yellow and white markings, along with a sign denoting a speed limit of 30, enhances the atmosphere. The rain envelops everything in tranquility, slightly tinged with sadness.",
-    "A tranquil, rain-drenched road, bordered by trees and parked vehicles, showcases a reflective, puddle-filled ground that enhances the quiet, contemplative mood. It’s a rainy day here, suggesting a peaceful street or parking area. Numerous cars, including compact models and smaller trucks, are parked along the right edge. A crosswalk, marked in yellow and white, accompanied by a yellow circle sign indicating a speed limit of 30, enriches the scenery. The rain creates a serene ambiance, tinged with a hint of nostalgia.",
-    "A still, rainy street lined with trees and parked vehicles displays a shiny, waterlogged surface that fosters a calm and reflective atmosphere. It is a rainy day in what appears to be either a quiet street or a parking area. Varied vehicles, from compact cars to small trucks, are neatly parked along the right side. A crosswalk, marked with distinctive yellow and white lines, accompanied by a yellow circle indicating a speed limit of 30, gives context. The overall rainy mood delivers a sense of tranquility mixed with a touch of melancholy.",
-    "An enchanting, rain-soaked street bordered by trees and assorted parked vehicles reveals a reflective, glistening surface, contributing to a serene and melancholic feel. The setting suggests a rainy day along a peaceful street or a quiet parking area. A variety of vehicles—compact cars and small trucks—are stationed to the right. The distinct yellow and white markings of a crosswalk, paired with a yellow speed limit sign of 30, highlight the scene. The gentle rain cultivates a soothing atmosphere mingled with a touch of sadness.",
-    "A calm avenue drenched in rain, lined with trees and parked vehicles, showcases a shimmering, reflective surface that creates an atmosphere of contemplation and tranquility. It’s a rainy day that turns this street into a quiet retreat or a subdued parking area. Different vehicles, from compact cars to small trucks, sit parked along the right side. A crosswalk, marked with yellow and white, and a yellow circle indicating a speed limit of 30, enhance the ambiance. The rain adds a layer of peacefulness, tinged with a hint of nostalgia.",
-    "A quiet, rain-saturated street adorned with trees and parked vehicles features a glimmering, waterlogged surface that enhances a calm, reflective mood. This rainy day unfolds in what seems to be a serene street or a peaceful parking area. A selection of vehicles, ranging from compact cars to small trucks, rests along the right side. A crosswalk, clearly defined with yellow and white markings, accompanied by a yellow circle illustrating a speed limit of 30, completes the imagery. The rain imbues the atmosphere with tranquility, subtly tinged with melancholy.",
-    "A serene street drenched in rain, flanked by trees and parked cars, with a glossy, wet pavement and a tranquil, wistful vibe.",
-    "On this rainy day, a peaceful street is adorned with trees and vehicles, showcasing a shiny, water-covered ground that enhances the subdued atmosphere.",
-    "An eerie calm pervades a rainy road lined with trees and parked automobiles, where the waterlogged surface reflects the somber mood of the day.",
-    "A tranquil street scene captures the essence of a rainy day, complete with trees, parked cars, and a shiny, reflective road that adds to the melancholic ambience.",
-    "This rainy street is lined with trees and parked vehicles, displaying a wet pavement that mirrors the overcast sky, creating a soft, melancholic atmosphere.",
-    "Amidst the rain, a quiet roadway presents a lineup of vehicles and shade from trees, with a glimmering, water-drenched surface enhancing the pensive mood.",
-    "A calm, rainy scene shows a street bordered by trees and parked cars, where puddles create a reflective surface mirroring the day's quiet melancholy.",
-    "This street, kissed by rain, boasts trees and parked vehicles, its reflective ground contributing to the overall serene and contemplative ambiance.",
-    "A soothing rain graces a quiet road lined with trees and parked cars, where the wet surface and muted colors cultivate a tranquil, somber feel.",
-    "The peacefulness of this rainy street, lined with trees and parked vehicles, is amplified by the glistening, water-soaked ground beneath a gray sky."
+    "A dramatic mountain vista under a blue sky.",    
+    "A breathtaking view of towering mountains against a clear blue sky, where the peaks are adorned with snow and evergreen trees add richness to the scenery.",
+    "The majestic mountain range rises impressively under a vivid blue sky, showcasing snow-capped summits and a backdrop of fluffy clouds.",
+    "An awe-inspiring landscape featuring snow-topped mountains, azure skies, and verdant evergreens, all contributing to a stunning natural panorama.",
+    "This striking mountain vista, framed by a brilliant blue sky and dotted with soft clouds, highlights the beauty of the snow-covered peaks and lush trees.",
+    "Under a clear blue sky, the grand mountains stand tall with their snow-capped tops, while evergreen trees at their base provide a sense of scale.",
+    "A captivating mountain scene unfolds beneath a bright blue expanse, where snowy peaks tower majestically and fluffy clouds float by.",
+    "The fantastic mountain view showcases a vast range, partially veiled in snow, contrasted beautifully against the deep blue sky and soft white clouds.",
+    "This stunning mountain panorama features pristine snow peaks under a sapphire sky, complemented by an array of evergreen trees populating the lower slopes.",
+    "A magnificent vista of snow-clad mountains meets a clear blue sky, revealing the enchanting contrast of evergreen trees and fluffy clouds.",
+    "The scene is alive with majestic snowy peaks, a brilliant azure sky, and fluffy clouds, creating an inspiring landscape of natural beauty.",
+    "Snow-capped mountains rise dramatically beneath a vibrant blue sky, with evergreen forests creating a lush foreground that enhances the vista.",
+    "A picturesque view captures the grandeur of a mountain range, crowned with snow against a bright sky, and framed by lush evergreens.",
+    "Set under a bright blue canopy, the awe-inspiring mountain vista features soaring peaks dusted with snow and a backdrop of soft, fluffy clouds.",
+    "This compelling scene presents a majestic mountain range, partially shrouded in snow, set against a vast blue sky filled with cottony clouds.",
+    "A panoramic view of inspiring mountains, their snowy tops gleaming under a clear blue sky, while evergreens line the base, enriching the landscape.",
+    "The impressive mountain landscape, accentuated by snow-capped heights and a cloud-strewn sky, evokes a sense of wonder and grandeur.",
+    "With their snow-covered peaks reaching for the azure sky, these majestic mountains stand tall beside evergreen trees, framing a breathtaking view.",
+    "A dramatic portrayal of nature, featuring snow-topped peaks against a vivid blue sky, where plush clouds and evergreens add depth to the scene.",
+    "Beneath a brilliant blue sky, the awe-inspiring mountain vista reveals a majestic range with snow-dusted peaks and lush evergreen trees at its base.",
+    "This scenic view highlights dramatic snow-capped mountains rising against a striking blue sky, with fluffy clouds floating gracefully above.",
+    "An impressive mountain range, draped in snow and framed by a brilliant blue sky, is complemented by the lush greenery of evergreen trees.",
+    "The grandeur of the mountains is emphasized by their snow-covered peaks, standing regal under a clear blue sky dotted with wispy clouds.",
+    "A stunning landscape emerges, showcasing snow-capped mountains beneath a radiant blue sky, embellished by fluffy clouds and verdant trees.",
+    "A remarkable view of the mountains reveals majestic peaks cloaked in snow, under a vast blue sky filled with clouds that enhance the natural beauty.",
+    "This striking mountain landscape features a magnificent range adorned with snow, set against a brilliant blue sky and lush evergreen foliage below.",
+    "The snowy summits of these grand mountains tower under an expansive blue sky, creating a breathtaking scene enhanced by evergreen trees.",
+    "An awe-inspiring view unfolds with snow-capped peaks against a clear blue sky, while evergreen forests line the foot of the majestic mountains.",
+    "Majestic mountains rise gracefully beneath a vibrant blue sky, their snowy heights contrasting with the soft clouds and lush green trees below.",
+    "An impressive mountain landscape stretches beneath a clear blue sky, featuring towering, snow-dusted summits, lush evergreen forests, and soft, billowy clouds that enhance the scene's breathtaking beauty.",
+    "Beneath a vivid blue sky, a stunning mountain panorama reveals its snow-covered peaks, surrounded by verdant pines and wispy clouds, creating an inspiring natural spectacle."
 ]
 
 
@@ -1132,14 +1132,14 @@ def build_parser():
     parser.add_argument("--pool_size", type=int, default=30)
     parser.add_argument("--pool_sample_mode", type=str, default="uniform", choices=["uniform", "weighted"])
     parser.add_argument("--pool_sample_temperature", type=float, default=1.0)
-                                    #not used. only used in weighted mode。
+                                    # not used. only used in weighted mode。
 
     # outer search
-    parser.add_argument("--outer_mc_samples", type=int, default=1) #每条 candidate trajectory 评估几次，然后取平均 fitness
-    parser.add_argument("--cma_iters", type=int, default=4) #CMA（或 fallback 搜索）做多少轮迭代
-    parser.add_argument("--cma_popsize", type=int, default=20) #每轮 CMA 采样多少条 candidate trajectory
-    parser.add_argument("--cma_sigma", type=float, default=0.02) #CMA 初始采样步长
-    parser.add_argument("--random_pool_candidates", type=int, default=200) #只有 没装 cma 包 时才用。
+    parser.add_argument("--outer_mc_samples", type=int, default=1) 
+    parser.add_argument("--cma_iters", type=int, default=4) 
+    parser.add_argument("--cma_popsize", type=int, default=20) 
+    parser.add_argument("--cma_sigma", type=float, default=0.02) 
+    parser.add_argument("--random_pool_candidates", type=int, default=200) 
 
     parser.add_argument(
         "--outer_min_timestep_index",
@@ -1155,24 +1155,15 @@ def build_parser():
         help="Maximum timestep index used by outer-loop trajectory search."
     )
 
-    # trajectory bounds 每一帧控制量的最大范围
+    # trajectory bounds
     parser.add_argument("--yaw_max", type=float, default=0.05)
     parser.add_argument("--forward_max", type=float, default=0.05)
     parser.add_argument("--shift_max", type=float, default=0.025)
 
-    # smoothness / step-change bounds 相邻两帧之间最多变化
+    # smoothness / step-change bounds 
     parser.add_argument("--delta_yaw_max", type=float, default=0.03)
     parser.add_argument("--delta_forward_max", type=float, default=0.03)
     parser.add_argument("--delta_shift_max", type=float, default=0.015)
-
-    # random trajectory sampler 只影响 随机采样 trajectory 时的 random walk 强度
-    # parser.add_argument("--random_walk_std_yaw", type=float, default=0.03)
-    # parser.add_argument("--random_walk_std_forward", type=float, default=0.03)
-    # parser.add_argument("--random_awalk_std_shift", type=float, default=0.015)
-
-    # parser.add_argument("--random_walk_std_yaw", type=float, default=0.015)
-    # parser.add_argument("--random_walk_std_forward", type=float, default=0.015)
-    # parser.add_argument("--random_walk_std_shift", type=float, default=0.008)
 
     parser.add_argument("--random_walk_std_yaw", type=float, default=0.02)
     parser.add_argument("--random_walk_std_forward", type=float, default=0.02)
@@ -1182,7 +1173,7 @@ def build_parser():
     parser.add_argument("--log_every", type=int, default=1)
     parser.add_argument("--save_every", type=int, default=100)
     parser.add_argument("--seed", type=int, default=42)
-
+    
     return parser
 
 

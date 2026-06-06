@@ -26,11 +26,9 @@ from PIL import Image
 from torchvision.transforms import v2
 from einops import rearrange
 
-
-
 from diffsynth import WanVideoAstraPipeline, ModelManager
 
-from scripts.infer_demo import (
+from scripts.utils import (
     replace_dit_model_in_manager,
     add_framepack_components,
     add_moe_components,
@@ -56,37 +54,37 @@ class Tee:
 # ============================================================
 
 DEFAULT_STREET_PROMPTS: List[str] = [
-    "A winding mountain road cuts through a serene alpine landscape, framed by snow-capped peaks, dense forests, and distant structures under a soft, overcast sky. The scene depicts a road winding through a mountainous landscape. Snow-capped peaks rise in the background under a cloudy sky. Lush green trees and vegetation line the roadside. On the right, there are buildings and parked trucks. The overall atmosphere is serene, with a sense of remoteness and natural beauty. The lighting is soft due to the overcast sky, casting a muted tone over the entire scene.",
-    "A twisting road meanders through a peaceful alpine scenery, bordered by snowy summits, thick woodlands, and far-off buildings beneath a gentle, cloudy sky.",
-    "This picturesque mountain route navigates a tranquil landscape, surrounded by towering snow-laden peaks, rich forests, and distant structures under a softly filtered sky.",
-    "A serene alpine road winds its way through a breathtaking landscape, with snow-covered mountains rising high above, dense greenery lining the path, and structures visible in the background.",
-    "In this calm mountain scene, a curving road traverses the lush landscape, with magnificent snow-capped peaks soaring above and buildings nestled among the trees.",
-    "An idyllic mountain highway snakes through a peaceful setting, framed by white-capped mountains, verdant forests, and structures nestled in the distance under a cloudy sky.",
-    "The winding mountain road offers a charming view of an alpine landscape, with frosty peaks towering in the background and a serene atmosphere enveloping the greenery and buildings nearby.",
-    "This image captures a meandering road through a tranquil mountain scene, featuring snow-covered summits, abundant trees, and distant buildings, all beneath a soothing overcast sky.",
-    "A gentle alpine road winds through a serene landscape, flanked by snow-draped peaks and lush green trees, with buildings and vehicles visible in the distance.",
-    "The road twists gracefully through the quiet mountains, surrounded by majestic snow-capped peaks, dense forests, and distant structures beneath a soft, cloudy canopy.",
-    "A scenic highway weaves through a tranquil alpine environment, characterized by towering snowy mountains, thick vegetation, and distant buildings bathed in gentle light.",
-    "This image portrays a winding road cutting through a peaceful mountain backdrop, with snow-clad peaks, lush trees lining the way, and distant structures under a soft sky.",
-    "A tranquil road navigates the mountainous terrain, embraced by snow-capped peaks and dense woods, with structures visible in the background under an overcast sky.",
-    "A winding roadway curves through a serene landscape of the Alps, with snow-capped mountains rising majestically in the background and green trees flanking the sides.",
-    "In this quiet mountain scene, a winding path leads through an enchanting setting, surrounded by frosty peaks, vibrant woods, and distant buildings under a gentle sky.",
-    "The road bends gracefully through a serene alpine vista, framed by snow-capped summits, rich forests, and distant structures beneath a soft, overcast sky.",
-    "An elegant mountain road meanders through a peaceful landscape, flanked by impressive snowy peaks and dense greenery, with visible structures in the distance.",
-    "The winding path through the mountains captures a serene atmosphere, with snowy peaks in the background, vibrant forests along the road, and distant buildings emerging softly.",
-    "A picturesque road cuts through a serene alpine landscape, lined with snow-dusted mountains and lush trees, where distant structures add to the tranquil charm.",
-    "This image showcases a winding mountain route set against snow-capped peaks and dense forests, with structures peeking through the greenery beneath a soft sky.",
-    "A winding mountain path graces a tranquil alpine scene, surrounded by snow-covered heights and flourishing trees, with distant buildings dotting the landscape.",
-    "In this serene landscape, a curved road winds through majestic mountains, with snow-capped peaks towering above and structures gently nestled nearby.",
-    "The road winds through a picturesque alpine environment, set among majestic, snow-capped peaks and rich forests, with buildings and vehicles visible on the side.",
-    "A winding road traverses a peaceful alpine landscape, framed by snowy mountains, lush trees, and distant buildings under a gentle, cloud-covered sky.",
-    "This winding road showcases a vibrant mountain landscape, surrounded by snow-capped peaks, rich forests, and buildings visible in the distance under soft skies.",
-    "The road elegantly weaves through a serene mountainous landscape, embraced by white-capped peaks and dense greenery, with structures suggesting human presence nearby.",
-    "In this tranquil alpine scene, a winding road connects distant structures amidst a backdrop of snow-covered peaks and lush trees beneath a soft overcast sky.",
-    "A curving mountain road flows through a peaceful landscape, with snow-crowned peaks in the distance, vibrant forests along the path, and structures subtly present.",
-    "A winding highway leads through a serene mountain setting, featuring snow-covered summits, lush greenery beside the road, and distant structures beneath a cloudy sky.",
-    "A twisting road cuts through the calmness of a mountainous terrain, where snow-topped peaks meet dense woodlands, and distant structures provide a hint of civilization.",
-    "This image presents a serene winding road through a picturesque mountain landscape, surrounded by snowy peaks and thick forests, with buildings nestled away in the distance."
+    "A dramatic mountain vista under a blue sky.",    
+    "A breathtaking view of towering mountains against a clear blue sky, where the peaks are adorned with snow and evergreen trees add richness to the scenery.",
+    "The majestic mountain range rises impressively under a vivid blue sky, showcasing snow-capped summits and a backdrop of fluffy clouds.",
+    "An awe-inspiring landscape featuring snow-topped mountains, azure skies, and verdant evergreens, all contributing to a stunning natural panorama.",
+    "This striking mountain vista, framed by a brilliant blue sky and dotted with soft clouds, highlights the beauty of the snow-covered peaks and lush trees.",
+    "Under a clear blue sky, the grand mountains stand tall with their snow-capped tops, while evergreen trees at their base provide a sense of scale.",
+    "A captivating mountain scene unfolds beneath a bright blue expanse, where snowy peaks tower majestically and fluffy clouds float by.",
+    "The fantastic mountain view showcases a vast range, partially veiled in snow, contrasted beautifully against the deep blue sky and soft white clouds.",
+    "This stunning mountain panorama features pristine snow peaks under a sapphire sky, complemented by an array of evergreen trees populating the lower slopes.",
+    "A magnificent vista of snow-clad mountains meets a clear blue sky, revealing the enchanting contrast of evergreen trees and fluffy clouds.",
+    "The scene is alive with majestic snowy peaks, a brilliant azure sky, and fluffy clouds, creating an inspiring landscape of natural beauty.",
+    "Snow-capped mountains rise dramatically beneath a vibrant blue sky, with evergreen forests creating a lush foreground that enhances the vista.",
+    "A picturesque view captures the grandeur of a mountain range, crowned with snow against a bright sky, and framed by lush evergreens.",
+    "Set under a bright blue canopy, the awe-inspiring mountain vista features soaring peaks dusted with snow and a backdrop of soft, fluffy clouds.",
+    "This compelling scene presents a majestic mountain range, partially shrouded in snow, set against a vast blue sky filled with cottony clouds.",
+    "A panoramic view of inspiring mountains, their snowy tops gleaming under a clear blue sky, while evergreens line the base, enriching the landscape.",
+    "The impressive mountain landscape, accentuated by snow-capped heights and a cloud-strewn sky, evokes a sense of wonder and grandeur.",
+    "With their snow-covered peaks reaching for the azure sky, these majestic mountains stand tall beside evergreen trees, framing a breathtaking view.",
+    "A dramatic portrayal of nature, featuring snow-topped peaks against a vivid blue sky, where plush clouds and evergreens add depth to the scene.",
+    "Beneath a brilliant blue sky, the awe-inspiring mountain vista reveals a majestic range with snow-dusted peaks and lush evergreen trees at its base.",
+    "This scenic view highlights dramatic snow-capped mountains rising against a striking blue sky, with fluffy clouds floating gracefully above.",
+    "An impressive mountain range, draped in snow and framed by a brilliant blue sky, is complemented by the lush greenery of evergreen trees.",
+    "The grandeur of the mountains is emphasized by their snow-covered peaks, standing regal under a clear blue sky dotted with wispy clouds.",
+    "A stunning landscape emerges, showcasing snow-capped mountains beneath a radiant blue sky, embellished by fluffy clouds and verdant trees.",
+    "A remarkable view of the mountains reveals majestic peaks cloaked in snow, under a vast blue sky filled with clouds that enhance the natural beauty.",
+    "This striking mountain landscape features a magnificent range adorned with snow, set against a brilliant blue sky and lush evergreen foliage below.",
+    "The snowy summits of these grand mountains tower under an expansive blue sky, creating a breathtaking scene enhanced by evergreen trees.",
+    "An awe-inspiring view unfolds with snow-capped peaks against a clear blue sky, while evergreen forests line the foot of the majestic mountains.",
+    "Majestic mountains rise gracefully beneath a vibrant blue sky, their snowy heights contrasting with the soft clouds and lush green trees below.",
+    "An impressive mountain landscape stretches beneath a clear blue sky, featuring towering, snow-dusted summits, lush evergreen forests, and soft, billowy clouds that enhance the scene's breathtaking beauty.",
+    "Beneath a vivid blue sky, a stunning mountain panorama reveals its snow-covered peaks, surrounded by verdant pines and wispy clouds, creating an inspiring natural spectacle."
 ]
 
 

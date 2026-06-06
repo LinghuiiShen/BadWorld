@@ -30,8 +30,7 @@ from einops import rearrange
 
 from diffsynth import WanVideoAstraPipeline, ModelManager
 
-# 直接复用原本推理脚本里的核心函数
-from scripts.infer_demo import (
+from scripts.utils import (
     replace_dit_model_in_manager,
     add_framepack_components,
     add_moe_components,
@@ -56,38 +55,38 @@ class Tee:
 # 1. Prompt pool
 # ============================================================
 
-DEFAULT_STREET_PROMPTS: List[str] = [
-    "A bustling marina with sailboats and a tall ship sits amid urban architecture, bathed in daylight with a surreal, atmospheric glow. The scene presents an aerial view of a bustling marina set against an urban backdrop. Hundreds of sailboats are neatly docked in the harbor, creating a dense pattern of masts and hulls. Adjacent to the marina is a wide boulevard lined with palm trees and urban architecture. A large tall ship is moored on the edge of the marina. The lighting suggests daylight conditions, with an atmospheric perspective that casts a somewhat surreal pallor over the city. The overall tone is one of organized activity and serene maritime leisure.",
-    "An animated marina, brimming with sailboats and a majestic tall ship, nestles within an urban landscape, illuminated by the warm glow of daylight. The aerial perspective captures the lively scene of a marina surrounded by city structures.",
-    "A vibrant marina filled with sailboats and a grand tall ship is nestled in the heart of the city, aglow with bright daylight. From above, the bustling harbor presents a tapestry of masts and boats against a backdrop of urban buildings.",
-    "From a bird's-eye view, a lively marina packed with sailboats and a towering ship contrasts beautifully with the surrounding urban architecture, all highlighted by radiant daylight and a dreamlike quality.",
-    "A thriving marina with numerous sailboats and a towering ship is set against the backdrop of an urban environment, basking in the daylight that adds a surreal glow to the scene. The aerial view showcases the orderly arrangement of boats and masts.",
-    "An aerial perspective reveals a crowded marina adorned with sailboats and a tall ship, framed by modern buildings, all under the enchanting light of day, creating a serene yet dynamic atmosphere.",
-    "Amidst urban structures, a lively marina bustling with sailboats and a prominent tall ship glows in brilliant daylight, forming an aerial view that emphasizes the harmony between city life and maritime leisure.",
-    "A tall ship and a multitude of sailboats populate a busy marina surrounded by city architecture, all illuminated by the bright daylight that gives the scene an otherworldly quality from above.",
-    "An energetic marina filled with sailboats and a majestic tall ship sits within a cityscape, basking in sunlight that bathes the scene in a surreal and airy light. The aerial view captures the orderly chaos of boats.",
-    "The aerial view showcases a vibrant marina, alive with sailboats and a tall ship, framed by urban architecture, all under the luminous daylight that gives the scene a dreamlike quality.",
-    "A lively marina, rich with the presence of sailboats and an impressive tall ship, finds itself amid urban architecture, glowing under daylight in a manner that feels almost surreal.",
-    "An overhead view captures a bustling marina, abundant with sailboats and a significant tall ship, all surrounded by buildings and palm trees, under the warm daylight that bestows a magical ambiance.",
-    "Under the bright daylight, a busy marina filled with sailboats and a tall ship stands amidst urban architecture, creating a picturesque scene that feels both organized and relaxed from above.",
-    "The marina, teeming with sailboats and overshadowed by a tall ship, is enveloped by a city, all illuminated by sunlight that casts a soft, surreal glow over the landscape.",
-    "An expanse of sailboats and a tall ship fills the marina, which is set against a backdrop of city buildings, all brought to life by the bright daylight and an ethereal atmosphere.",
-    "A marina bustling with sailboats and a magnificent tall ship is juxtaposed against an urban skyline, all glowing in daylight that adds an air of surreal tranquility to the scene.",
-    "The scene from above presents a busy marina brimming with sailboats, accompanied by a majestic tall ship, surrounded by city architecture and adorned with the soft light of day.",
-    "In the heart of the urban landscape, a vibrant marina filled with sailboats and a tall ship shines brightly under the daylight, reflecting a blend of spirited activity and peaceful maritime charm.",
-    "An overhead perspective reveals a marina crowded with sailboats and a notable tall ship, enveloped by an urban environment, all under the warm embrace of daylight with a surreal atmosphere.",
-    "A busy marina with sleek sailboats and a prominent tall ship is framed by urban architecture, illuminated by the inviting light of day that infuses the scene with a surreal quality.",
-    "The lively marina, adorned with numerous sailboats and a towering ship, lies in the center of urban life, bathed in daylight that casts an enchanting glow on the surroundings.",
-    "High above the city, a bustling marina is filled with boats and a tall ship, reflecting a lively atmosphere in the daylight that lends a surreal aura to the urban backdrop.",
-    "An animated marina dotted with sailboats and a grand tall ship finds its place within a city, basking in the daylight that wraps everything in a dreamy glow.",
-    "A tall ship and a myriad of sailboats decorate a lively marina, nestled against urban architecture, all glimmering under the warm, surreal light of day.",
-    "The marina, vibrant with sailboats and a striking tall ship, sits among urban buildings, illuminated by daylight that casts a dreamlike quality over the entire scene.",
-    "An aerial view captures the organized chaos of a bustling marina filled with sailboats and a tall ship, all set against the backdrop of urban structures and bathed in the golden light of day.",
-    "The marina thrives with energy as sailboats and a grand tall ship glisten under daylight, surrounded by urban architecture that enhances the surreal vibe of this bustling scene.",
-    "An animated marina filled with sailboats and a majestic tall ship is framed by urban buildings, illuminated by bright daylight that imparts a dreamlike quality to the scene. From above, the marina teems with life as numerous sailboats are docked neatly, their masts creating a striking pattern. Nearby, a spacious boulevard lined with palm trees complements the urban scenery, while a grand tall ship rests at the marina's edge. The daylight casts a luminous atmosphere that adds a surreal touch to the city, combining elements of vibrant activity with peaceful maritime charm.",
-    "In the heart of the city, a lively marina buzzes with sailboats and a grand tall ship, all under the bright embrace of daylight that gives the area a unique, ethereal glow. Seen from above, the harbor is a frenzy of neatly arranged boats, their masts forming an intricate layout. Adjacent to the marina, a broad boulevard accompanied by palm trees showcases the urban landscape, while a towering tall ship is docked at the marina's fringe. The lighting creates a spectral atmosphere, blending the urban hustle with a tranquil maritime ambiance.",
-    "A vibrant marina, bustling with sailboats and a striking tall ship, is nestled within an urban landscape, all enhanced by the brilliance of daylight that bathes everything in a surreal glow. The aerial perspective reveals a busy harbor filled with orderly rows of sailboats, their masts piercing the sky. Close by, a wide palm-lined boulevard provides a picturesque contrast to the city’s architecture. The impressive tall ship lies moored at the marina, while the daylight sets a dreamlike mood over the scene, merging organized activity with calm nautical leisure.",
-    "The lively marina filled with sailboats and a towering tall ship showcases a blend of urban architecture and vibrant activity, all under the soft light of day that adds a surreal touch. Viewed from above, the harbor is a mosaic of masts and hulls, indicating a busy boating life. A spacious boulevard with palm trees runs beside the marina, framing the urban environment beautifully. The tall ship rests along the marina’s perimeter, bathed in light that creates an atmospheric perspective, harmonizing the hustle with a serene maritime vibe."
+DEFAULT_STREET_PROMPTS: List[str] = [ # can be changed
+    "A dramatic mountain vista under a blue sky.",    
+    "A breathtaking view of towering mountains against a clear blue sky, where the peaks are adorned with snow and evergreen trees add richness to the scenery.",
+    "The majestic mountain range rises impressively under a vivid blue sky, showcasing snow-capped summits and a backdrop of fluffy clouds.",
+    "An awe-inspiring landscape featuring snow-topped mountains, azure skies, and verdant evergreens, all contributing to a stunning natural panorama.",
+    "This striking mountain vista, framed by a brilliant blue sky and dotted with soft clouds, highlights the beauty of the snow-covered peaks and lush trees.",
+    "Under a clear blue sky, the grand mountains stand tall with their snow-capped tops, while evergreen trees at their base provide a sense of scale.",
+    "A captivating mountain scene unfolds beneath a bright blue expanse, where snowy peaks tower majestically and fluffy clouds float by.",
+    "The fantastic mountain view showcases a vast range, partially veiled in snow, contrasted beautifully against the deep blue sky and soft white clouds.",
+    "This stunning mountain panorama features pristine snow peaks under a sapphire sky, complemented by an array of evergreen trees populating the lower slopes.",
+    "A magnificent vista of snow-clad mountains meets a clear blue sky, revealing the enchanting contrast of evergreen trees and fluffy clouds.",
+    "The scene is alive with majestic snowy peaks, a brilliant azure sky, and fluffy clouds, creating an inspiring landscape of natural beauty.",
+    "Snow-capped mountains rise dramatically beneath a vibrant blue sky, with evergreen forests creating a lush foreground that enhances the vista.",
+    "A picturesque view captures the grandeur of a mountain range, crowned with snow against a bright sky, and framed by lush evergreens.",
+    "Set under a bright blue canopy, the awe-inspiring mountain vista features soaring peaks dusted with snow and a backdrop of soft, fluffy clouds.",
+    "This compelling scene presents a majestic mountain range, partially shrouded in snow, set against a vast blue sky filled with cottony clouds.",
+    "A panoramic view of inspiring mountains, their snowy tops gleaming under a clear blue sky, while evergreens line the base, enriching the landscape.",
+    "The impressive mountain landscape, accentuated by snow-capped heights and a cloud-strewn sky, evokes a sense of wonder and grandeur.",
+    "With their snow-covered peaks reaching for the azure sky, these majestic mountains stand tall beside evergreen trees, framing a breathtaking view.",
+    "A dramatic portrayal of nature, featuring snow-topped peaks against a vivid blue sky, where plush clouds and evergreens add depth to the scene.",
+    "Beneath a brilliant blue sky, the awe-inspiring mountain vista reveals a majestic range with snow-dusted peaks and lush evergreen trees at its base.",
+    "This scenic view highlights dramatic snow-capped mountains rising against a striking blue sky, with fluffy clouds floating gracefully above.",
+    "An impressive mountain range, draped in snow and framed by a brilliant blue sky, is complemented by the lush greenery of evergreen trees.",
+    "The grandeur of the mountains is emphasized by their snow-covered peaks, standing regal under a clear blue sky dotted with wispy clouds.",
+    "A stunning landscape emerges, showcasing snow-capped mountains beneath a radiant blue sky, embellished by fluffy clouds and verdant trees.",
+    "A remarkable view of the mountains reveals majestic peaks cloaked in snow, under a vast blue sky filled with clouds that enhance the natural beauty.",
+    "This striking mountain landscape features a magnificent range adorned with snow, set against a brilliant blue sky and lush evergreen foliage below.",
+    "The snowy summits of these grand mountains tower under an expansive blue sky, creating a breathtaking scene enhanced by evergreen trees.",
+    "An awe-inspiring view unfolds with snow-capped peaks against a clear blue sky, while evergreen forests line the foot of the majestic mountains.",
+    "Majestic mountains rise gracefully beneath a vibrant blue sky, their snowy heights contrasting with the soft clouds and lush green trees below.",
+    "An impressive mountain landscape stretches beneath a clear blue sky, featuring towering, snow-dusted summits, lush evergreen forests, and soft, billowy clouds that enhance the scene's breathtaking beauty.",
+    "Beneath a vivid blue sky, a stunning mountain panorama reveals its snow-covered peaks, surrounded by verdant pines and wispy clouds, creating an inspiring natural spectacle."
 ]
 
 
@@ -680,7 +679,7 @@ def attack_first_frame_pgd(args):
         if adv_first_frame.grad is None:
             raise RuntimeError("adv_first_frame.grad is None. Check gradient flow.")
 
-        with torch.no_grad():
+        with torch.no_grad(): # gradient descent
             adv_first_frame = adv_first_frame - args.alpha * adv_first_frame.grad.sign()
             adv_first_frame = project_and_clamp(
                 adv_x=adv_first_frame,
