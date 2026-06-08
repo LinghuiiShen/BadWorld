@@ -10,29 +10,43 @@ export default class Overview extends React.Component {
       typeof this.props.abstract === 'string' &&
       this.props.abstract.trim().length > 0;
 
-    return (
-      <div className="uk-section">
-        {this.props.teaser && (
-          <img
-            src={`${this.props.teaser}`}
-            className="uk-align-center uk-responsive-width"
-            alt=""
-          />
-        )}
+    const isTeaserVideo =
+      typeof this.props.teaser === 'string' &&
+      /\.(mp4|webm|ogg)$/i.test(this.props.teaser);
 
-        {hasAbstract && (
-          <>
-            <h2 className="uk-text-bold uk-heading-line uk-text-center">
-              <span>Abstract</span>
-            </h2>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: marked.parse(this.props.abstract),
-              }}
-            />
-          </>
-        )}
-      </div>
+    return (
+      <section className="uk-section">
+        <div className="uk-container uk-container-small">
+          {this.props.teaser &&
+            (isTeaserVideo ? (
+              <video
+                src={this.props.teaser}
+                className="uk-width-1-1"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                controls
+              />
+            ) : (
+              <img src={this.props.teaser} className="uk-width-1-1" />
+            ))}
+
+          {hasAbstract && (
+            <>
+              <h2 className="uk-h2 uk-text-primary uk-text-bold">
+                Abstract
+              </h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: marked.parse(this.props.abstract),
+                }}
+              />
+            </>
+          )}
+        </div>
+      </section>
     );
   }
 }

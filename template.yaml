@@ -6,7 +6,7 @@ journal: ''
 resources:
   paper: # https://openreview.net/
   arxiv: https://arxiv.org
-  code: https://github.com/denkiwakame/academic-project-template
+  code: https://github.com/LinghuiiShen/BadWorld
   # video: https://www.youtube.com/embed/onbnb_D1wC8?si=xJczUv716Lt5aO4l&amp;start=1150
   # demo: https://colab.research.google.com/
   # huggingface: https://huggingface.co/
@@ -42,7 +42,7 @@ bibtex: >
     note      = {This paper sets the benchmark for future AI research and applications.}
   }
 
-teaser: cover.jpg
+teaser: astra/cover_video.mp4
 
 body:
   - title: 'TL;DR'
@@ -176,7 +176,7 @@ body:
         display: block;
       }
       .trajectory-wide {
-        width: 78vw;
+        width: 50vw;
         max-width: 1200px;
         margin: 22px 0 0 50%;
         transform: translateX(-50%);
@@ -199,6 +199,24 @@ body:
         width: 100%;
         height: auto;
         display: block;
+      }
+      .trajectory-performance-figure {
+        width: 60vw;
+        max-width: 1200px;
+        margin: 40px 0 0 50%;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+      .trajectory-performance-figure img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .trajectory-performance-caption {
+        margin-top: 8px;
+        font-size: 0.95em;
+        color: #555;
+        font-style: italic;
       }
       .binary-attack-label {
         color: #d32f2f;
@@ -234,32 +252,18 @@ body:
       </thead>
       <tbody>
       <tr>
-      <td><video src="matrix/clean1.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/maxV1.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/minV1.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/far1.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/close1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/clean1.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="matrix/maxV1.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="matrix/minV1.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="matrix/far1.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="matrix/close1.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
       </tr>
       <tr>
-      <td><video src="matrix/clean2.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/maxV2.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/minV2.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/far2.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/close2.mp4" controls muted loop playsinline></video></td>
-      </tr>
-      <tr>
-      <td><video src="matrix/clean11.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/maxV11.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/minV11.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/far11.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/close11.mp4" controls muted loop playsinline></video></td>
-      </tr>
-      <tr>
-      <td><video src="matrix/clean21.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/maxV21.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/minV21.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/far21.mp4" controls muted loop playsinline></video></td>
-      <td><video src="matrix/close21.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/clean21.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="matrix/maxV21.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="matrix/minV21.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="matrix/far21.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="matrix/close21.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
       </tr>
       </tbody>
       </table>
@@ -279,32 +283,18 @@ body:
       </thead>
       <tbody>
       <tr>
-      <td><video src="astra/clean2.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/maxV2.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/minV2.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/driftmax2.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/driftmin2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/clean7.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra/maxV7.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra/minV7.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra/driftmax7.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra/driftmin7.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
       </tr>
       <tr>
-      <td><video src="astra/clean7.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/maxV7.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/minV7.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/driftmax7.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/driftmin7.mp4" controls muted loop playsinline></video></td>
-      </tr>
-      <tr>
-      <td><video src="astra/clean56.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/maxV56.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/minV56.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/driftmax56.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/driftmin56.mp4" controls muted loop playsinline></video></td>
-      </tr>
-      <tr>
-      <td><video src="astra/clean23.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/maxV23.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/minV23.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/driftmax23.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra/driftmin23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/clean56.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra/maxV56.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra/minV56.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra/driftmax56.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra/driftmin56.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
       </tr>
       </tbody>
       </table>
@@ -325,28 +315,28 @@ body:
       <tr>
       <th>Clean</th>
       <th>Velocity-Min</th>
-      <th><span class="binary-attack-label">+ Binary Attack</span></th>
+      <th><span class="binary-attack-label">+ Bi-Level Attack</span></th>
       </tr>
       </thead>
       <tbody>
       <tr>
-      <td><video src="astra2/clean28_4.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra2/minV28_cam4.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra2/bi28_cam4.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra2/clean28_4.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra2/minV28_cam4.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra2/bi28_cam4.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
       </tr>
       <tr>
-      <td><video src="astra2/clean59_4.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra2/minV59_cam4.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra2/bi59_cam4.mp4" controls muted loop playsinline></video></td>
-      </tr>
-      <tr>
-      <td><video src="astra2/clean80_9.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra2/minV80_cam9.mp4" controls muted loop playsinline></video></td>
-      <td><video src="astra2/bi80_cam9.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra2/clean80_9.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra2/minV80_cam9.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
+      <td><video src="astra2/bi80_cam9.mp4" controls autoplay muted loop playsinline preload="auto"></video></td>
       </tr>
       </tbody>
       </table>
       </div>
+
+      <figure class="trajectory-performance-figure">
+      <img src="astra2/diff_cam.jpg" alt="Attack performance under different camera trajectories">
+      <figcaption class="trajectory-performance-caption">Attack performance unfer different camera trajectories.</figcaption>
+      </figure>
 
   - title: Key Takeaway
     text: |
@@ -530,23 +520,11 @@ body:
 #       This template is provided under the [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) license.
 #       You are free to use and modify the code in your project as long as you include a link to this [GitHub repository](https://github.com/denkiwakame/academic-project-template) in your footer.
 
-projects: # relevant projects
-  - title: Relevant Project I
-    description: abstract text
-    img: https://getuikit.com/docs/images/light.jpg
-    journal: "ABCD'23"
-    url: https://denkiwakame.github.io/academic-project-template/
-  - title: Relevant Project II
-    description: abstract text
-    img: 001.jpg
-    journal: "EFGH'22"
-    url: https://denkiwakame.github.io/academic-project-template/
-  - title: Relevant Project III
-    description: abstract text
-    img: 002.jpg
-    journal: "IJKL'22"
-    url:
-      https://denkiwakame.github.io/academic-project-template/
+projects:
+  - title: Matrix-Game
+    url: https://github.com/SkyworkAI/Matrix-Game
+  - title: Astra
+    url: https://github.com/EternalEvan/Astra
 
       # <tr>
       # <td><video src="matrix/clean1.mp4" controls muted loop playsinline></video></td>

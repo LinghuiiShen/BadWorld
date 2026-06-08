@@ -1,50 +1,79 @@
 import React from 'react';
-import { render } from 'react-dom';
 
-const ProjectCard = ({ title, img, description, journal, url }) => (
-  <div data-uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 200; repeat: true">
-    <a
-      href={url}
-      target="_blank"
-      className="uk-card uk-card-default uk-grid-collapse uk-margin uk-link-toggle"
-      data-uk-grid
-    >
-      <div className="uk-card-media-left uk-cover-container uk-width-1-3@s">
-        <img src={img} alt="" data-uk-cover />
-        <canvas width="200" height="200"></canvas>
-      </div>
-      <div className="uk-width-2-3@s">
-        <div className="uk-card-body">
-          <div className="uk-card-badge uk-label">{journal}</div>
-          <h4>{title}</h4>
-          <p>{description}</p>
-        </div>
-      </div>
-    </a>
-  </div>
+const ProjectCard = ({ title, url }) => (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="related-project-pill"
+  >
+    <span>{title}</span>
+    <span className="related-project-arrow">↗</span>
+  </a>
 );
 
 export default class Projects extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
+    if (!this.props.projects || this.props.projects.length === 0) {
+      return null;
+    }
+
     return (
-      <div className="uk-section">
+      <div className="uk-section related-projects-section">
+        <style>{`
+          .related-projects-section {
+            padding-top: 25px;
+          }
+
+          .related-projects-list {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+          }
+
+          .related-project-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(211,47,47,0.22);
+            background: rgba(211,47,47,0.055);
+            color: #111;
+            font-weight: 800;
+            font-size: 1.05em;
+            text-decoration: none !important;
+            transition: all 0.18s ease;
+          }
+
+          .related-project-pill:hover {
+            color: #d32f2f;
+            border-color: rgba(211,47,47,0.45);
+            background: rgba(211,47,47,0.095);
+            transform: translateY(-1px);
+          }
+
+          .related-project-arrow {
+            color: #d32f2f;
+            font-weight: 900;
+          }
+        `}</style>
+
         <h2 className="uk-heading-line uk-text-center uk-text-bold">
           <span>Relevant Projects</span>
         </h2>
-        {this.props.projects.map((project, idx) => {
-          return (
+
+        <div className="related-projects-list">
+          {this.props.projects.map((project, idx) => (
             <ProjectCard
+              key={idx}
               title={project.title}
-              img={project.img}
-              description={project.description}
-              journal={project.journal}
               url={project.url}
             />
-          );
-        })}
+          ))}
+        </div>
       </div>
     );
   }
