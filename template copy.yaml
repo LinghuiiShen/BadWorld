@@ -1,0 +1,553 @@
+theme: default
+organization: The Hong Kong Polytechnic University
+twitter: '@denkivvakame'
+title: 'BadWorld: Adversarial Attack on World Models'
+journal: ''
+resources:
+  paper: # https://openreview.net/
+  arxiv: https://arxiv.org
+  code: https://github.com/LinghuiiShen/BadWorld
+  # video: https://www.youtube.com/embed/onbnb_D1wC8?si=xJczUv716Lt5aO4l&amp;start=1150
+  # demo: https://colab.research.google.com/
+  # huggingface: https://huggingface.co/
+description: academic projectpage template that supports markdown and KaTeX
+
+image: https://denkiwakame.github.io/academic-project-template/teaser.jpg
+url: https://denkiwakame.github.io/academic-project-template
+speakerdeck: # speakerdeck slide ID
+authors:
+  - name: Linghui Shen
+    affiliation: [1]
+  - name: Mingyue Cui
+    affiliation: [1]
+  - name: Xingyi Yang
+    affiliation: [1]
+    url: https://adamdad.github.io/
+affiliations:
+  - The Hong Kong Polytechnic University
+
+bibtex: >
+  @article{doe2024superai,
+    author    = {Jane Doe and John Smith},
+    title     = {Unleashing the Power of Super AI: Transforming the Future of Technology},
+    journal   = {Journal of Superintelligent Systems},
+    year      = {2024},
+    volume    = {99},
+    number    = {1},
+    pages     = {1-42},
+    month     = {January},
+    keywords  = {Super AI, Machine Learning, Artificial Intelligence, Technological Innovation},
+    doi       = {10.9999/jsis.2024.001},
+    url       = {https://www.example.com/superai-article},
+    note      = {This paper sets the benchmark for future AI research and applications.}
+  }
+
+teaser: cover.jpg
+
+body:
+  - title: 'TL;DR'
+    text: |
+      We introduce <span style="color:#d32f2f; font-weight:700;">BadWorld</span>, a label-free adversarial attack for visual world models. 
+
+      Starting from a single perturbed context image, <span style="color:#d32f2f; font-weight:700;">BadWorld</span> reliably causes future rollouts to break down across unseen user controls, revealing severe robustness risks in current VWMs.
+
+  - title: Method
+    text: |
+      <style>
+      .uk-container .uk-h2.uk-text-primary.uk-text-bold {
+        display: inline !important;
+        font-weight: 900 !important;
+        color: #111 !important;
+        background: linear-gradient(180deg, transparent 66%, rgba(211,47,47,0.18) 66%, rgba(211,47,47,0.18) 88%, transparent 88%) !important;
+        padding: 0 0.08em !important;
+        line-height: 1.18 !important;
+      }
+      body {
+        font-size: 18px;
+      }
+
+      .badworld-red {
+        color: #d32f2f;
+        font-weight: 800;
+      }
+
+      .badworld-emph {
+        font-weight: 800;
+        color: #111;
+        background: linear-gradient(180deg, transparent 58%, rgba(211,47,47,0.18) 58%);
+      }
+
+      .badworld-level2-heading {
+        font-size: 1.36em;
+      }
+
+      .video-results-table th,
+      .trajectory-video-table th {
+        font-size: 1.06em;
+      }
+      .badworld-method-image {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        margin-bottom: 34px;
+      }
+      .badworld-level2-heading {
+        width: 72vw;
+        max-width: 1020px;
+        margin: 38px 0 18px 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.28em;
+        font-weight: 800;
+        color: #111;
+        border-left: 5px solid #d32f2f;
+        padding: 10px 0 10px 14px;
+        background: linear-gradient(90deg, rgba(211,47,47,0.08), rgba(211,47,47,0));
+      }
+      .badworld-level2-index {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: #d32f2f;
+        color: #fff;
+        font-size: 0.82em;
+        font-weight: 900;
+        flex: 0 0 auto;
+      }
+      .badworld-level2-text {
+        width: 100%;
+      }
+      .results-wide {
+        width: 90vw;
+        max-width: 1400px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+      }
+      .video-section-title {
+        width: 90vw;
+        max-width: 1400px;
+        margin: 28px 0 14px 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 1.05em;
+        font-weight: 700;
+        color: #444;
+        letter-spacing: 0.02em;
+      }
+      .video-section-title::before,
+      .video-section-title::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #dddddd;
+      }
+      .video-section-title span {
+        white-space: nowrap;
+        padding: 4px 13px;
+        border-radius: 999px;
+        background: #f7f7f7;
+        border: 1px solid #e2e2e2;
+      }
+      .video-results-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+      .video-results-table th,
+      .video-results-table td {
+        padding: 6px;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .video-results-table th {
+        font-weight: 800;
+      }
+      .video-results-table video {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .trajectory-wide {
+        width: 78vw;
+        max-width: 1200px;
+        margin: 22px 0 0 50%;
+        transform: translateX(-50%);
+      }
+      .trajectory-video-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+      .trajectory-video-table th,
+      .trajectory-video-table td {
+        padding: 7px;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .trajectory-video-table th {
+        font-weight: 800;
+      }
+      .trajectory-video-table video {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .binary-attack-label {
+        color: #d32f2f;
+        font-weight: 900;
+      }
+      </style>
+
+      <img src="model_badworld.jpg" class="badworld-method-image">
+
+      <div class="badworld-level2-heading">
+      <span class="badworld-level2-index">1</span>
+      <span>Label-Free Velocity Attack Objectives</span>
+      </div>
+
+      BadWorld attacks the world model without requiring any ground-truth future video or predefined correct rollout.
+
+      We introduce four self-supervised objectives: (1) <span class="badworld-emph">Velocity-Max</span>, amplifying denoising updates; (2) <span class="badworld-emph">Velocity-Min</span>, suppressing denoising updates; (3) <span class="badworld-emph">Drift-Max</span>, encouraging semantic drift; and (4) <span class="badworld-emph">Drift-Min</span>, inducing motion collapse.
+      For all objectives, we approximate the history using repeated clean contexts and constrain the attack to early denoising timesteps.
+
+      Among them, we choose <span class="badworld-emph">Velocity-Min</span> as the final objective, since it consistently achieves strong attack effectiveness on both Matrix-Game-2.0 and Astra.
+
+      <div class="video-section-title"><span>Matrix-Game-2.0</span></div>
+      <div class="results-wide">
+      <table class="video-results-table">
+      <thead>
+      <tr>
+      <th>Clean</th>
+      <th>Velocity-Max</th>
+      <th>Velocity-Min <span style="color:#16a34a; font-size:1.4em; font-weight:900;">✓</span></th>
+      <th>Drift-Max</th>
+      <th>Drift-Min</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td><video src="matrix/clean1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/maxV1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/minV1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/far1.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/close1.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
+      <td><video src="matrix/clean2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/maxV2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/minV2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/far2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/close2.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
+      <td><video src="matrix/clean11.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/maxV11.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/minV11.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/far11.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/close11.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
+      <td><video src="matrix/clean21.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/maxV21.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/minV21.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/far21.mp4" controls muted loop playsinline></video></td>
+      <td><video src="matrix/close21.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <div class="video-section-title"><span>Astra</span></div>
+      <div class="results-wide">
+      <table class="video-results-table">
+      <thead>
+      <tr>
+      <th>Clean</th>
+      <th>Velocity-Max</th>
+      <th>Velocity-Min <span style="color:#16a34a; font-size:1.4em; font-weight:900;">✓</span></th>
+      <th>Drift-Max</th>
+      <th>Drift-Min</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td><video src="astra/clean2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/maxV2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/minV2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmax2.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmin2.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
+      <td><video src="astra/clean7.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/maxV7.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/minV7.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmax7.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmin7.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
+      <td><video src="astra/clean56.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/maxV56.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/minV56.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmax56.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmin56.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
+      <td><video src="astra/clean23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/maxV23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/minV23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmax23.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra/driftmin23.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+      <div class="badworld-level2-heading">
+      <span class="badworld-level2-index">2</span>
+      <span>Trajectory-Adaptive Optimization</span>
+      </div>
+
+      BadWorld further improves the perturbation by considering that future user controls are unknown and may vary. 
+
+      It actively searches for <span class="badworld-emph">hard trajectories</span> where the current perturbation is less effective, then updates the perturbation against these challenging controls. This makes the adversarial image more robust across different camera paths or action sequences, leading to <span class="badworld-emph">stronger degradation and better generalization</span>.
+
+      <div class="trajectory-wide">
+      <table class="trajectory-video-table">
+      <thead>
+      <tr>
+      <th>Clean</th>
+      <th>Velocity-Min</th>
+      <th><span class="binary-attack-label">+ Binary Attack</span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td><video src="astra2/clean28_4.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra2/minV28_cam4.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra2/bi28_cam4.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
+      <td><video src="astra2/clean59_4.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra2/minV59_cam4.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra2/bi59_cam4.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      <tr>
+      <td><video src="astra2/clean80_9.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra2/minV80_cam9.mp4" controls muted loop playsinline></video></td>
+      <td><video src="astra2/bi80_cam9.mp4" controls muted loop playsinline></video></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+  - title: Key Takeaway
+    text: |
+      Visual world models are becoming interactive simulators, but their fragile dynamics suggest they <span class="badworld-emph">have not truly learned stable physical knowledge</span>.
+
+      <span class="badworld-red">BadWorld</span> shows that tiny, imperceptible changes to a single input image can severely corrupt future rollouts.
+      This reveals a critical robustness gap for <span class="badworld-emph">safety-critical deployment</span> and a practical path for <span class="badworld-emph">privacy protection</span>.
+
+#   - title: Markdown examples
+#     text: |
+#       Here's our demo text showcasing the power of markdown and KaTeX integration!
+#       Markdown allows you to easily format text using simple syntax.
+#       - **bold**
+#       - *italic*
+#       - `inline code`.
+
+#       You can also create headings of various levels:
+#       # Heading Level 1
+#       ## Heading Level 2
+#       ### Heading Level 3
+#       #### Heading Level 4
+#       Markdown allows you to create tables like the following:
+#       ### Fictitious AI Benchmark Results
+#       | **Model Name** | **Accuracy (%)** ⬆️| **Inference Time (ms)** ⬇️|
+#       |---------------------|--------------|---------------------|
+#       | TransGPT-XT         | 96.3         | $\infty$                 |
+#       | GigaBERT Prime      | 94.7         | 9.5                 |
+#       | MegaLSTM-Pro        | 92.5         | 10.1                |
+#       | UltraTransformer    | 97.1         | 7.8                 |
+#       | **QuantumDNN-ALPHA**    | 95.8         | 8.5             |
+
+#       Of course, you can also directly write tables in HTML if needed. For more details, refer to the [UIKit Table documentation](https://getuikit.com/docs/table).
+
+#       <div class="uk-overflow-auto uk-width-1-1">
+#         <table class="uk-table uk-table-small uk-text-small uk-table-divider">
+#           <thead>
+#             <tr>
+#               <th>Model Name</th>
+#               <th>Accuracy (%)</th>
+#               <th>Inference Time (ms)</th>
+#               <th>Memory Usage (MB)</th>
+#               <th>Training Time (hours)</th>
+#             </tr>
+#           </thead>
+#           <tbody>
+#             <tr>
+#               <td>TransGPT-XT<br/>GigaBERT Prime</td>
+#               <td>96.3<br/>94.7</td>
+#               <td>8.2<br/>9.5</td>
+#               <td>1200<br/>1100</td>
+#               <td>36<br/>48</td>
+#             </tr>
+#             <tr>
+#               <td>MegaLSTM-Pro<br/>UltraTransformer</td>
+#               <td>92.5<br/>97.1</td>
+#               <td>10.1<br/>7.8</td>
+#               <td>1050<br/>1300</td>
+#               <td>56<br/>42</td>
+#             </tr>
+#             <tr class="uk-active">
+#               <td>QuantumDNN-ALPHA</td>
+#               <td>95.8</td>
+#               <td>8.5</td>
+#               <td>1250</td>
+#               <td>50</td>
+#             </tr>
+#           </tbody>
+#         </table>
+#       </div>
+#   - title: Codeblock examples
+#     text: |
+#       Code blocks are automatically highlighted by [highlight.js](https://highlightjs.org/examples). To change the theme, import a preferred `.css`.
+
+#       ```javascript
+#       // src/components/body.jsx
+#       import { markedHighlight } from "marked-highlight";
+#       import hljs from 'highlight.js';
+#       //import 'highlight.js/styles/base16/gruvbox-dark-hard.css';
+#       import 'highlight.js/styles/base16/github.css';
+
+#       const renderer = new marked.Renderer();
+#       renderer.code = (code, language) => {
+#         return `<pre class="hljs"><code class="hljs language-${language}">${code}</code></pre>`
+#       }
+#       ```
+#   - title: KaTeX examples
+#     text: >
+#       $\KaTeX$ enables you to write mathematical expressions beautifully within your text (e.g. $\alpha$, $\beta$, $\gamma$ ).
+#       $$ax^2 + bx + c = 0$$
+#       $$ \int \oint \sum \prod $$
+#       $$ \begin{CD} A @>a>> B \\ @VbVV @AAcA \\ C @= D \end{CD} $$
+#       [KaTeX supports a wide range of mathematical symbols and equations](https://katex.org/docs/support_table.html), ensuring your technical content is both clear and visually appealing.
+#       With markdown for text formatting and KaTeX for mathematical expressions, our template empowers you to communicate complex ideas effectively. Whether you're writing a scientific paper or a technical blog post, harnessing these tools will elevate your content and engage your readers.
+
+#   - title: Color Palette
+#     text: |
+#       To customize the theme, edit UIkit variables in [theme.scss](https://github.com/denkiwakame/academic-project-template/blob/project-page/src/scss/theme.scss). Material Design colors are available as variables (e.g. `$clr-blue-50` ). For the full set of colors, please visit [Material Design Color System](https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors).
+
+#       <div class="uk-overflow-auto">
+#       <table class="uk-table uk-table-small uk-text-small uk-table-divider">
+#         <thead>
+#           <tr>
+#             <th>50</th>
+#             <th>100</th>
+#             <th>200</th>
+#             <th>300</th>
+#             <th>400</th>
+#             <th>500</th>
+#           </tr>
+#         </thead>
+#         <tbody>
+#           <tr>
+#             <td bgcolor="#FFEBEE">$clr-red-50</td>
+#             <td bgcolor="#FFCCD2">$clr-red-100</td>
+#             <td bgcolor="#EF9A9A">$clr-red-200</td>
+#             <td bgcolor="#E57373">$clr-red-300</td>
+#             <td bgcolor="#FF5350">$clr-red-400</td>
+#             <td bgcolor="#F44336">$clr-red-500</td>
+#           </tr>
+#           <tr>
+#             <td bgcolor="#FCE4EC">$clr-pink-50</td>
+#             <td bgcolor="#F8BBD0">$clr-pink-100</td>
+#             <td bgcolor="#F48FB1">$clr-pink-200</td>
+#             <td bgcolor="#F06292">$clr-pink-300</td>
+#             <td bgcolor="#EC407A">$clr-pink-400</td>
+#             <td bgcolor="#E91E63">$clr-pink-500</td>
+#           </tr>
+#           <tr>
+#             <td bgcolor="#E8EAF6">$clr-indigo-50</td>
+#             <td bgcolor="#C5CAE9">$clr-indigo-100</td>
+#             <td bgcolor="#9FA8DA">$clr-indigo-200</td>
+#             <td bgcolor="#7986CB">$clr-indigo-300</td>
+#             <td bgcolor="#5C6BC0">$clr-indigo-400</td>
+#             <td bgcolor="#3F51B5">$clr-indigo-500</td>
+#           </tr>
+#           <tr>
+#             <td bgcolor="#E0F7FA">$clr-cyan-50</td>
+#             <td bgcolor="#B2EBF2">$clr-cyan-100</td>
+#             <td bgcolor="#80DEEA">$clr-cyan-200</td>
+#             <td bgcolor="#4DD0E1">$clr-cyan-300</td>
+#             <td bgcolor="#26C6DA">$clr-cyan-400</td>
+#             <td bgcolor="#00BCD4">$clr-cyan-500</td>
+#           </tr>
+#           <tr>
+#             <td bgcolor="#E0F2F1">$clr-teal-50</td>
+#             <td bgcolor="#B2DFDB">$clr-teal-100</td>
+#             <td bgcolor="#80CBC4">$clr-teal-200</td>
+#             <td bgcolor="#4DB6AC">$clr-teal-300</td>
+#             <td bgcolor="#26A69A">$clr-teal-400</td>
+#             <td bgcolor="#009688">$clr-teal-500</td>
+#           </tr>
+#           <tr>
+#             <td bgcolor="#FFF8E1">$clr-amber-50</td>
+#             <td bgcolor="#FFECB3">$clr-amber-100</td>
+#             <td bgcolor="#FFE082">$clr-amber-200</td>
+#             <td bgcolor="#FFD54F">$clr-amber-300</td>
+#             <td bgcolor="#FFCA28">$clr-amber-400</td>
+#             <td bgcolor="#FFC107">$clr-amber-500</td>
+#           </tr>
+#           <tr>
+#             <td bgcolor="#F9FBE7">$clr-lime-50</td>
+#             <td bgcolor="#F0F4C3">$clr-lime-100</td>
+#             <td bgcolor="#E6EE9C">$clr-lime-200</td>
+#             <td bgcolor="#DCE775">$clr-lime-300</td>
+#             <td bgcolor="#D4E157">$clr-lime-400</td>
+#             <td bgcolor="#CDDC39">$clr-lime-500</td>
+#           </tr>
+#           <tr>
+#             <td bgcolor="#FAFAFA">$clr-grey-50</td>
+#             <td bgcolor="#F5F5F5">$clr-grey-100</td>
+#             <td bgcolor="#EEEEEE">$clr-grey-200</td>
+#             <td bgcolor="#E0E0E0">$clr-grey-300</td>
+#             <td bgcolor="#BDBDBD">$clr-grey-400</td>
+#             <td bgcolor="#9E9E9E">$clr-grey-500</td>
+#           </tr>
+#         </tbody>
+#       </table>
+#       </div>
+#   - title: License
+#     text: |
+#       This template is provided under the [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) license.
+#       You are free to use and modify the code in your project as long as you include a link to this [GitHub repository](https://github.com/denkiwakame/academic-project-template) in your footer.
+
+projects:
+  - title: Matrix-Game
+    url: https://github.com/SkyworkAI/Matrix-Game
+  - title: Astra
+    url: https://github.com/EternalEvan/Astra
+
+      # <tr>
+      # <td><video src="matrix/clean1.mp4" controls muted loop playsinline></video></td>
+      # <td><video src="matrix/maxV1.mp4" controls muted loop playsinline></video></td>
+      # <td><video src="matrix/minV1.mp4" controls muted loop playsinline></video></td>
+      # <td><video src="matrix/far1.mp4" controls muted loop playsinline></video></td>
+      # <td><video src="matrix/close1.mp4" controls muted loop playsinline></video></td>
+      # </tr>
+
+      # <tr>
+      # <td><video src="astra/clean23.mp4" controls muted loop playsinline></video></td>
+      # <td><video src="astra/maxV23.mp4" controls muted loop playsinline></video></td>
+      # <td><video src="astra/minV23.mp4" controls muted loop playsinline></video></td>
+      # <td><video src="astra/driftmax23.mp4" controls muted loop playsinline></video></td>
+      # <td><video src="astra/driftmin23.mp4" controls muted loop playsinline></video></td>
+      # </tr>
