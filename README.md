@@ -8,7 +8,7 @@
 
 <br>
 
-<img src="./assets/cover_video.gif" width="90%">
+<img src="./assets/cover_video.gif" width="80%">
 
 </div>
 
