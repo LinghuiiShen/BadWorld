@@ -2,7 +2,7 @@
 
 # BadWorld: Adversarial Attacks on World Models
 
-[![arXiv](https://arxiv.org/abs/2606.16519)](YOUR_ARXIV_LINK)
+[![arXiv](https://img.shields.io/badge/arXiv-paper-b31b1b.svg)](https://arxiv.org/abs/2606.16519)
 [![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://linghuiishen.github.io/BadWorld/)
 [![Code](https://img.shields.io/badge/Code-GitHub-black.svg)](https://github.com/LinghuiiShen/BadWorld)
 
