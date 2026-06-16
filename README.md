@@ -218,10 +218,13 @@ This repository builds on the following projects:
 If you find this project useful, please consider citing our work:
 
 ```bibtex
-@article{shen2026badworld,
-  title={BadWorld: Label-Free Adversarial Attacks on Visual World Models},
-  author={Shen, Linghui and Cui, Mingyue and Yang, Xingyi},
-  journal={arXiv preprint},
-  year={2026}
+@misc{shen2026badworldadversarialattacksworld,
+      title={BadWorld: Adversarial Attacks on World Models}, 
+      author={Linghui Shen and Mingyue Cui and Xingyi Yang},
+      year={2026},
+      eprint={2606.16519},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2606.16519}, 
 }
 ```
